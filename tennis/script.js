@@ -8,7 +8,7 @@ async function detectFaces(image) {
   return detections;
 }
 
-function cropImage(image, boxes, expand = 200, targetWidth = 1500, targetHeight = 1000) {
+function cropImage(image, boxes, expand = 490, targetWidth = 1500, targetHeight = 1000) {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
@@ -58,17 +58,33 @@ function cropImage(image, boxes, expand = 200, targetWidth = 1500, targetHeight 
 document
   .getElementById("imageUpload")
   .addEventListener("change", async (event) => {
+
+    if(!document.body.classList.contains('loading')){
+      document.body.classList.add('loading');
+    }
+
     const image = new Image();
     image.src = URL.createObjectURL(event.target.files[0]);
 
     image.onload = async () => {
       const detections = await detectFaces(image);
+
+      document.getElementById("imageContainer").innerHTML = '';
+
       if (detections.length > 0) {
         const boxes = detections.map((d) => d.detection.box);
         const croppedImage = cropImage(image, boxes);
         const imgElement = document.createElement("img");
         imgElement.src = croppedImage;
+
+        document.querySelector('.generate_image').disabled = false;
+
         document.getElementById("imageContainer").appendChild(imgElement);
+        
+        if(document.body.classList.contains('loading')){
+          document.body.classList.remove('loading');
+        }
+
       }
     };
   });

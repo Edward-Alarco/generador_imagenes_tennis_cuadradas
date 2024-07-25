@@ -11,13 +11,148 @@ $verde: #a0bc30;
     box-sizing: border-box;
 }
 
-p, h1, h2, h3, h4, h5, h6, span{
+.w-100{width: 100%;}
+.h-100{height: 100%;}
+.wh-100{
+    @extend .w-100;
+    @extend .h-100;
+}
+.wh-100vh{
+    @extend .w-100;
+    height: 100vh;
+}
+
+body{
+    overflow: hidden;
+}
+
+label, button, input, p, h1, h2, h3, h4, h5, h6, span{
     font-family: 'Anton';
 }
 
 @mixin fullWH{
     width: 100%;
     height: 100%;
+}
+
+.loader{
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    &_fixed{
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 100;
+        display: grid;
+        place-items: center;
+        transition: all .3s ease;
+        background: rgba($color: #000, $alpha: 0.45);
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+.loading .loader_fixed{
+    opacity: 1 !important;
+    pointer-events: all !important;
+}
+
+.hero_view{
+    position: fixed;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    &>*{
+        @include fullWH;  
+        max-height: 100vh; 
+    }
+    &-txt{
+        padding: 2rem 5%;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        h1{
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            font-weight: 500;
+        }
+       
+        .generate_image{
+            padding: 15px 20px;
+            min-width: 150px;
+            text-transform: uppercase;
+            border: none;
+            outline: none;
+            background-color: #151515;
+            color: #eee;
+            border-radius: 7px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.25s ease-out;
+            &:hover{
+                transform: translateY(-3px);
+            }
+            &:disabled{
+                opacity: 0.66;
+                cursor: not-allowed;
+            }
+        }
+    }
+    &-input{
+        margin-block: 20px;
+        width: 250px;
+        height: 190px;
+        position: relative;
+        border: 2px dashed #ccc;
+        .input{
+            position: absolute;
+            opacity: 0;
+            inset: 0;
+            z-index: 2;
+            @include fullWH();
+        }
+        .labelFile {
+            @include fullWH();
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 5px;
+            color: #404040;
+            cursor: pointer;
+            p{
+                max-width: 200px;
+                margin-inline: auto;
+                text-align: center;
+            }
+        }
+    }
+    &-img{
+        overflow: hidden;
+        img{
+            @include fullWH;
+            object-fit: cover;
+            object-position: center;
+            transition: all .3s ease;
+            filter: blur(1px);
+        }
+        &:hover{
+            img{
+                filter: blur(0);
+                transform: scale(1.1);
+            }
+        }
+    }
 }
 
 .canvas{
@@ -30,6 +165,16 @@ p, h1, h2, h3, h4, h5, h6, span{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    &_scroll{
+        padding-bottom: 30px;
+        overflow-x: scroll;
+        pointer-events: none;
+
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
 
     &>*{
         width: 100%;
@@ -107,7 +252,7 @@ p, h1, h2, h3, h4, h5, h6, span{
             display: flex;
             align-items: center;
             justify-content: space-between;
-            div{
+            &>div{
                 height: 100%;
                 width: 50%;
                 position: relative;
@@ -136,29 +281,54 @@ p, h1, h2, h3, h4, h5, h6, span{
                     }
                 }
                 &:nth-child(2){
-                    display: grid;
-                    grid-template-columns: repeat(4, 210px);
-                    grid-gap: 49px;
-                    padding-left: 1.5%;
-
                     &::before{
                         right: 0;
                         background: $verde;
                         clip-path: polygon(13% 0%, 100% 0%, 100% 100%, 1% 100%);
                     }
+                }
+            }
+        }
 
-                    span{
-                        display: block;
-                        color: #000;
-                        font-style: italic;
-                        font-size: 6.25em;
-                        font-weight: bold;
-                        position: relative;
-                        z-index: 2;
-                        text-align: center;
+        &-grid{
+            display: grid !important;
+            grid-template-columns: repeat(4, 210px);
+            grid-gap: 49px;
+            padding-left: 1.5%;
+
+            div{
+                font-family: 'Anton';
+                display: block;
+                color: #000;
+                font-style: italic;
+                font-size: 6.25em;
+                font-weight: bold;
+                position: relative;
+                z-index: 2;
+                text-align: center;
+                &:not(:last-child){
+                    &::before{
+                        position: absolute;
+                        content: '';
+                        width: 9px;
+                        border-radius: 50px;
+                        background: white;
+                        height: calc(100% + 20px);
+                        left: calc(100% + (49px / 2));
+                        top: 50%;
+                        transform: translateY(-50%) rotate(26deg);
                     }
                 }
             }
         }
     }
 }
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} 
