@@ -107,7 +107,6 @@ p, h1, h2, h3, h4, h5, h6, span {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 .canvas_scores-points div::before {
   position: absolute;
@@ -123,15 +122,34 @@ p, h1, h2, h3, h4, h5, h6, span {
   text-align: center;
   font-style: italic;
 }
+.canvas_scores-points div:nth-child(1) {
+  justify-content: center;
+}
 .canvas_scores-points div:nth-child(1)::before {
   left: 0;
   background: white;
   -webkit-clip-path: polygon(0 0, 99% 0%, 87% 100%, 0% 100%);
           clip-path: polygon(0 0, 99% 0%, 87% 100%, 0% 100%);
 }
+.canvas_scores-points div:nth-child(2) {
+  display: grid;
+  grid-template-columns: repeat(4, 210px);
+  grid-gap: 49px;
+  padding-left: 1.5%;
+}
 .canvas_scores-points div:nth-child(2)::before {
   right: 0;
   background: #a0bc30;
   -webkit-clip-path: polygon(13% 0%, 100% 0%, 100% 100%, 1% 100%);
           clip-path: polygon(13% 0%, 100% 0%, 100% 100%, 1% 100%);
+}
+.canvas_scores-points div:nth-child(2) span {
+  display: block;
+  color: #000;
+  font-style: italic;
+  font-size: 6.25em;
+  font-weight: bold;
+  position: relative;
+  z-index: 2;
+  text-align: center;
 }/*# sourceMappingURL=style.css.map */

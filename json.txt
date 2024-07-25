@@ -15,8 +15,20 @@
     },
     {
       "ronda2": {
-        "equipo1": 7,
-        "equipo2": 6
+        "equipo1": 2,
+        "equipo2": 9
+      }
+    },
+    {
+      "ronda3": {
+        "equipo1": 8,
+        "equipo2": 1
+      }
+    },
+    {
+      "ronda4": {
+        "equipo1": 8,
+        "equipo2": 2
       }
     }
   ]
