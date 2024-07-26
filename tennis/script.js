@@ -63,6 +63,8 @@ document
       document.body.classList.add('loading');
     }
 
+    document.querySelector('.generate_image').disabled = true;
+
     const image = new Image();
     image.src = URL.createObjectURL(event.target.files[0]);
 

@@ -155,7 +155,9 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   width: 2160px;
   aspect-ratio: 1/1;
   height: 2160px;
-  background: #3b1d3f;
+  background: #3b1d3f url(../images/bg.jpeg) no-repeat;
+  background-size: cover;
+  background-position: center;
   padding-block: 80px 119px;
   display: flex;
   flex-direction: column;
