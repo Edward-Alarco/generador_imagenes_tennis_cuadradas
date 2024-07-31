@@ -63,10 +63,17 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.hero_view > * {
-  width: 100%;
-  height: 100%;
-  max-height: 100vh;
+@media (max-width: 768px) {
+  .hero_view {
+    grid-template-columns: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .hero_view > * {
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+  }
 }
 .hero_view-txt {
   padding: 2rem 5%;
@@ -74,6 +81,15 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;
+}
+@media (max-width: 768px) {
+  .hero_view-txt {
+    min-height: 100vh !important;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    justify-content: flex-start;
+  }
 }
 .hero_view-txt h1 {
   text-transform: uppercase;
@@ -135,6 +151,11 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
 }
 .hero_view-img {
   overflow: hidden;
+}
+@media (max-width: 768px) {
+  .hero_view-img {
+    display: none;
+  }
 }
 .hero_view-img img {
   width: 100%;

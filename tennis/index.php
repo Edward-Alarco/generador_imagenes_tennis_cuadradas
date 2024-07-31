@@ -68,7 +68,7 @@
     </div>
 
     <?php if (!empty($datos)) : ?>
-        <div class="canvas_scroll">
+        <div class="canvas_scroll w-100">
             <div class="canvas general_canvas">
                 <div class="canvas_top">
 

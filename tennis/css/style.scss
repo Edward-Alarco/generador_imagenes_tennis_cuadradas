@@ -70,9 +70,14 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
     inset: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 768px){
+        grid-template-columns: 100%;
+    }
     &>*{
-        @include fullWH;  
-        max-height: 100vh; 
+        @media (min-width: 768px){
+            @include fullWH;
+            max-height: 100vh; 
+        }
     }
     &-txt{
         padding: 2rem 5%;
@@ -80,6 +85,13 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
         align-items: flex-start;
         flex-direction: column;
         justify-content: center;
+        @media (max-width: 768px){
+            min-height: 100vh !important;
+            height: auto;
+            overflow-x: hidden;
+            overflow-y: auto;
+            justify-content: flex-start;
+        }
         h1{
             text-transform: uppercase;
             letter-spacing: .4px;
@@ -140,6 +152,9 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
     }
     &-img{
         overflow: hidden;
+        @media (max-width: 768px){
+            display: none;
+        }
         img{
             @include fullWH;
             object-fit: cover;

@@ -8,7 +8,7 @@ async function detectFaces(image) {
   return detections;
 }
 
-function cropImage(image, boxes, expand = 490, targetWidth = 1500, targetHeight = 1000) {
+function cropImage(image, boxes, expand = 620, targetWidth = 1500, targetHeight = 1000) {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
@@ -55,9 +55,7 @@ function cropImage(image, boxes, expand = 490, targetWidth = 1500, targetHeight 
   return canvas.toDataURL();
 }
 
-document
-  .getElementById("imageUpload")
-  .addEventListener("change", async (event) => {
+document.getElementById("imageUpload").addEventListener("change", async (event) => {
 
     if(!document.body.classList.contains('loading')){
       document.body.classList.add('loading');
