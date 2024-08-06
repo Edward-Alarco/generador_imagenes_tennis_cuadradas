@@ -9,7 +9,6 @@
     <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@latest/dist/face-api.min.js"></script>
     <script defer src="script.js"></script>
 </head>
-
 <body>
 
     <div class="loader_fixed">

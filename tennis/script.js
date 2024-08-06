@@ -9,7 +9,7 @@ async function detectFaces(image) {
 }
 
 function calculateExpand(boxes) {
-  if (boxes.length < 2) return 490; // Valor por defecto si solo hay una cara
+  if (boxes.length < 2) return 600; // Valor por defecto si solo hay una cara
 
   // Calcular la distancia promedio entre las caras
   let totalDistance = 0;
@@ -29,7 +29,7 @@ function calculateExpand(boxes) {
 
   // Ajustar el valor de expand basado en la distancia promedio
   // Cuanto menor sea la distancia, mayor será el valor de expand
-  return Math.max(490 - averageDistance / 2, 100);
+  return Math.max(600 - averageDistance / 2, 100);
 }
 
 function cropImage(image, boxes, expand, targetWidth = 1500, targetHeight = 1000) {

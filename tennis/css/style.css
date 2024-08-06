@@ -51,6 +51,11 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   opacity: 0;
   pointer-events: none;
 }
+@media (max-width: 800px) {
+  .loader {
+    display: none !important;
+  }
+}
 
 .loading .loader_fixed {
   opacity: 1 !important;
