@@ -8,11 +8,35 @@ async function detectFaces(image) {
   return detections;
 }
 
-function cropImage(image, boxes, expand = 490, targetWidth = 1500, targetHeight = 1000) {
+function calculateExpand(boxes) {
+  if (boxes.length < 2) return 490; // Valor por defecto si solo hay una cara
+
+  // Calcular la distancia promedio entre las caras
+  let totalDistance = 0;
+  let count = 0;
+
+  for (let i = 0; i < boxes.length - 1; i++) {
+    for (let j = i + 1; j < boxes.length; j++) {
+      const dx = boxes[i].x - boxes[j].x;
+      const dy = boxes[i].y - boxes[j].y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      totalDistance += distance;
+      count++;
+    }
+  }
+
+  const averageDistance = totalDistance / count;
+
+  // Ajustar el valor de expand basado en la distancia promedio
+  // Cuanto menor sea la distancia, mayor será el valor de expand
+  return Math.max(490 - averageDistance / 2, 100);
+}
+
+function cropImage(image, boxes, expand, targetWidth = 1500, targetHeight = 1000) {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
-  // Calculate bounding box for all faces
+  // Calcular la caja delimitadora para todas las caras
   let minX = Math.max(0, Math.min(...boxes.map((box) => box.left)) - expand);
   let minY = Math.max(0, Math.min(...boxes.map((box) => box.top)) - expand);
   let maxX = Math.min(
@@ -27,19 +51,19 @@ function cropImage(image, boxes, expand = 490, targetWidth = 1500, targetHeight 
   let width = maxX - minX;
   let height = maxY - minY;
 
-  // Maintain aspect ratio of the target dimensions
+  // Mantener la relación de aspecto de las dimensiones objetivo
   const targetAspectRatio = targetWidth / targetHeight;
   const currentAspectRatio = width / height;
 
   if (currentAspectRatio > targetAspectRatio) {
-    // The width is too large; adjust it to maintain the aspect ratio
+    // El ancho es demasiado grande; ajustarlo para mantener la relación de aspecto
     const newWidth = height * targetAspectRatio;
     const delta = (width - newWidth) / 2;
     minX += delta;
     maxX -= delta;
     width = newWidth;
   } else if (currentAspectRatio < targetAspectRatio) {
-    // The height is too large; adjust it to maintain the aspect ratio
+    // La altura es demasiado grande; ajustarla para mantener la relación de aspecto
     const newHeight = width / targetAspectRatio;
     const delta = (height - newHeight) / 2;
     minY += delta;
@@ -55,40 +79,37 @@ function cropImage(image, boxes, expand = 490, targetWidth = 1500, targetHeight 
   return canvas.toDataURL();
 }
 
-document
-  .getElementById("imageUpload")
-  .addEventListener("change", async (event) => {
+document.getElementById("imageUpload").addEventListener("change", async (event) => {
+  if (!document.body.classList.contains('loading')) {
+    document.body.classList.add('loading');
+  }
 
-    if(!document.body.classList.contains('loading')){
-      document.body.classList.add('loading');
-    }
+  document.querySelector('.generate_image').disabled = true;
 
-    document.querySelector('.generate_image').disabled = true;
+  const image = new Image();
+  image.src = URL.createObjectURL(event.target.files[0]);
 
-    const image = new Image();
-    image.src = URL.createObjectURL(event.target.files[0]);
+  image.onload = async () => {
+    const detections = await detectFaces(image);
 
-    image.onload = async () => {
-      const detections = await detectFaces(image);
+    document.getElementById("imageContainer").innerHTML = '';
 
-      document.getElementById("imageContainer").innerHTML = '';
+    if (detections.length > 0) {
+      const boxes = detections.map((d) => d.detection.box);
+      const expand = calculateExpand(boxes);
+      const croppedImage = cropImage(image, boxes, expand);
+      const imgElement = document.createElement("img");
+      imgElement.src = croppedImage;
 
-      if (detections.length > 0) {
-        const boxes = detections.map((d) => d.detection.box);
-        const croppedImage = cropImage(image, boxes);
-        const imgElement = document.createElement("img");
-        imgElement.src = croppedImage;
+      document.querySelector('.generate_image').disabled = false;
 
-        document.querySelector('.generate_image').disabled = false;
+      document.getElementById("imageContainer").appendChild(imgElement);
 
-        document.getElementById("imageContainer").appendChild(imgElement);
-        
-        if(document.body.classList.contains('loading')){
-          document.body.classList.remove('loading');
-        }
-
+      if (document.body.classList.contains('loading')) {
+        document.body.classList.remove('loading');
       }
-    };
-  });
+    }
+  };
+});
 
 loadModels();

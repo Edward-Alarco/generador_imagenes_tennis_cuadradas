@@ -66,6 +66,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
 
 .hero_view{
     // display: none !important;
+    
     position: fixed;
     inset: 0;
     display: grid;
@@ -178,7 +179,6 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
         position: absolute;
         z-index: -1;
     }
-
     &>*{
         width: 100%;
     }
@@ -255,19 +255,33 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: relative;
+            flex-wrap: nowrap;
             &>div{
                 height: 100%;
                 width: 50%;
-                position: relative;
                 display: flex;
                 align-items: center;
+                position: relative;
+
+                svg{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    @include fullWH;
+                    polygon{
+                        @include fullWH;
+                    }
+                }
+
                 &::before{
                     position: absolute;
                     content: '';
                     top: 0;
                     height: 100%;
-                    width: 106%;
+                    width: 105.2%;
                 }
+
                 p{
                     position: relative;
                     z-index: 2;
@@ -275,24 +289,59 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
                     text-align: center;
                     font-style: italic;
                 }
+                
+                /*&.masked {
+                    mask-image: url(#mask1);
+                    -webkit-mask-image: url(#mask1);
+                }
+                &:nth-child(2) {
+                    mask-image: url(#mask2);
+                    -webkit-mask-image: url(#mask2);
+                    background: $verde;
+                }*/
+
+                /*&:nth-child(1){
+                    position: relative;
+                    width: 52.6%;
+                    justify-content: center;
+                    background: url(../images/bg_gray.webp);
+                }
+                &:nth-child(2){
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    z-index: 3;
+                    width: 52.6%;
+                    background: url(../images/bg_green.webp);
+                }
+                &:nth-child(1), &:nth-child(2){
+                    background-size: 100% 100%;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }*/
+
                 &:nth-child(1){
                     justify-content: center;
                     &::before{
                         left: 0;
-                        background: white;
-                        clip-path: polygon(0 0, 99% 0%, 87% 100%, 0% 100%);
+                        background: url(../images/bg_gray.webp);
                     }
                 }
                 &:nth-child(2){
                     &::before{
                         right: 0;
-                        background: $verde;
-                        clip-path: polygon(13% 0%, 100% 0%, 100% 100%, 1% 100%);
+                        background: url(../images/bg_green.webp);
+                    }
+                }
+                &:nth-child(1), &:nth-child(2){
+                    &::before{
+                        background-size: 100% 100%;
+                        background-position: center;
+                        background-repeat: no-repeat;
                     }
                 }
             }
         }
-
         &-grid{
             display: grid !important;
             grid-template-columns: repeat(4, 210px);

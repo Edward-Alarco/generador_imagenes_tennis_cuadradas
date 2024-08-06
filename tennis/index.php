@@ -84,7 +84,7 @@
                 </div>
                 <div class="canvas_scores">
                     <div class="canvas_scores-top canvas_scores-points">
-                        <div>
+                        <div class="masked">
                             <p><?php echo htmlspecialchars(implode(' + ', $datos['jugadores']['equipo1'])); ?></p>
                         </div>
                         <div class="canvas_scores-grid">
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                     <div class="canvas_scores-bottom canvas_scores-points">
-                        <div>
+                        <div class="masked">
                             <p><?php echo htmlspecialchars(implode(' + ', $datos['jugadores']['equipo2'])); ?></p>
                         </div>
                         <div class="canvas_scores-grid">
@@ -114,58 +114,105 @@
                 </div>
             </div>
         </div>
-    <?php endif; ?>
 
-    <script src="js/html2canvas.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
+        <script src="js/html2canvas.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                let generateButton = document.querySelector('.generate_image'),
+                    inputImage = document.querySelector('#imageUpload'),
+                    generalDiagram = document.querySelector('.general_canvas');
 
-            let generateButton = document.querySelector('.generate_image'),
-                inputImage = document.querySelector('#imageUpload'),
-                generalDiagram = document.querySelector('.general_canvas');
+                function downloadImage(data, filename) {
+                    let a = document.createElement('a');
+                    a.href = data;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
 
-            function downloadImage(data, filename) {
-                let a = document.createElement('a');
-                a.href = data;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            }
+                function applyClipPathToCanvas(canvas, clipPaths) {
+                    let ctx = canvas.getContext('2d');
+                    ctx.save();
 
-            function createCanvasAndDownload(canvas, startX, width, height, targetWidth, targetHeight, filename) {
-                let newCanvas = document.createElement('canvas');
-                newCanvas.width = targetWidth;
-                newCanvas.height = targetHeight;
-                let ctx = newCanvas.getContext('2d');
-                ctx.drawImage(canvas, startX, 0, width, height, 0, 0, targetWidth, targetHeight);
-                let dataURL = newCanvas.toDataURL('image/png');
-                downloadImage(dataURL, filename);
-            }
-
-            if (generateButton) {
-                generateButton.addEventListener('click', (e) => {
-                    e.preventDefault();
-
-                    if (inputImage && inputImage.files.length == 0) {
-                        alert('Asegurarse de haber cargado una imagen');
-                        return;
-                    }
-
-                    setTimeout(() => {
-                        html2canvas(generalDiagram, {
-                            scale: 1
-                        }).then(canvas => {
-                            let width = canvas.width;
-                            let height = canvas.height;
-                            createCanvasAndDownload(canvas, 0, width, height, 1080, 1080, 'image.png');
+                    clipPaths.forEach(({
+                        x,
+                        y,
+                        path
+                    }) => {
+                        ctx.beginPath();
+                        path.forEach(([moveX, moveY], index) => {
+                            if (index === 0) {
+                                ctx.moveTo(x + moveX, y + moveY);
+                            } else {
+                                ctx.lineTo(x + moveX, y + moveY);
+                            }
                         });
-                    }, 100);
-                })
-            }
+                        ctx.closePath();
+                        ctx.clip();
+                    });
 
-        })
-    </script>
+                    ctx.restore();
+                }
+
+                function createCanvasAndDownload(canvas, startX, width, height, targetWidth, targetHeight, filename) {
+                    let newCanvas = document.createElement('canvas');
+                    newCanvas.width = targetWidth;
+                    newCanvas.height = targetHeight;
+                    let ctx = newCanvas.getContext('2d');
+                    ctx.drawImage(canvas, startX, 0, width, height, 0, 0, targetWidth, targetHeight);
+
+                    // Aplicar manualmente el clip-path después de dibujar la imagen
+                    let clipPaths = [{
+                            x: 0,
+                            y: 0,
+                            path: [
+                                [0, 0],
+                                [targetWidth * 0.99, 0],
+                                [targetWidth * 0.87, targetHeight],
+                                [0, targetHeight]
+                            ]
+                        },
+                        {
+                            x: targetWidth * 0.5,
+                            y: 0,
+                            path: [
+                                [targetWidth * 0.13, 0],
+                                [targetWidth, 0],
+                                [targetWidth, targetHeight],
+                                [targetWidth * 0.01, targetHeight]
+                            ]
+                        }
+                    ];
+                    applyClipPathToCanvas(newCanvas, clipPaths);
+
+                    let dataURL = newCanvas.toDataURL('image/png');
+                    downloadImage(dataURL, filename);
+                }
+
+                if (generateButton) {
+                    generateButton.addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        if (inputImage && inputImage.files.length == 0) {
+                            alert('Asegúrese de haber cargado una imagen');
+                            return;
+                        }
+
+                        setTimeout(() => {
+                            html2canvas(generalDiagram, {
+                                scale: 1
+                            }).then(canvas => {
+                                let width = canvas.width;
+                                let height = canvas.height;
+                                createCanvasAndDownload(canvas, 0, width, height, 1080, 1080, 'image.png');
+                            });
+                        }, 100);
+                    });
+                }
+            });
+        </script>
+    <?php endif; ?>
 
 </body>
 
