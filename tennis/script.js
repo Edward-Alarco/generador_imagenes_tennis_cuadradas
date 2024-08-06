@@ -80,14 +80,25 @@ function cropImage(image, boxes, expand, targetWidth = 1500, targetHeight = 1000
 }
 
 document.getElementById("imageUpload").addEventListener("change", async (event) => {
+
+  var file = event.target.files[0];
+
   if (!document.body.classList.contains('loading')) {
     document.body.classList.add('loading');
   }
 
   document.querySelector('.generate_image').disabled = true;
 
+  if(!file){
+    if (document.body.classList.contains('loading')) {
+      document.body.classList.remove('loading');
+    }
+    document.getElementById("imageUpload").value = '';
+    return;
+  }
+
   const image = new Image();
-  image.src = URL.createObjectURL(event.target.files[0]);
+  image.src = URL.createObjectURL(file);
 
   image.onload = async () => {
     const detections = await detectFaces(image);
@@ -108,6 +119,17 @@ document.getElementById("imageUpload").addEventListener("change", async (event) 
       if (document.body.classList.contains('loading')) {
         document.body.classList.remove('loading');
       }
+    }else{
+
+      if (document.body.classList.contains('loading')) {
+        document.body.classList.remove('loading');
+      }
+      document.getElementById("imageUpload").value = '';
+
+      setTimeout(() => {
+        alert('No se pudo reconocer alguna cara en la imagen.')
+      }, 500);
+      
     }
   };
 });
