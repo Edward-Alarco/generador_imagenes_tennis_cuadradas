@@ -201,9 +201,10 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
     &>*{
         width: 100%;
     }
-    &_rounds, &_format{
+    &_rounds, &_format, &_group{
         position: absolute;
         color: white;
+        z-index: 3;
         font-style: italic;
     }
     &_rounds{
@@ -212,12 +213,14 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
         right: 99px;
     }
     &_format{
-        font-size: 6em;
+        font-size: 5.25em;
         max-width: 400px;
         text-align: center;
         right: 86px;
-        z-index: 3;
         top: 38%;
+    }
+    &_group{
+        
     }
     &_top{
         padding-inline: 88px 99px;

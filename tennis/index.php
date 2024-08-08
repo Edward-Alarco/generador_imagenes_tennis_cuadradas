@@ -9,6 +9,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@latest/dist/face-api.min.js"></script>
     <script defer src="script.js"></script>
 </head>
+
 <body>
 
     <div class="loader_fixed">
@@ -17,7 +18,7 @@
 
     <?php
     // Leer el archivo JSON desde el archivo .txt
-    $rutaArchivo = $_GET['json'] ?? '../json.txt';
+    $rutaArchivo = $_GET['json'] ?? '../example.json';
     $jsonData = file_get_contents($rutaArchivo);
     $datos = json_decode($jsonData, true);
     ?>
@@ -71,8 +72,8 @@
             <div class="canvas general_canvas">
                 <div class="canvas_top">
 
-                    <p class="canvas_rounds"><?php echo htmlspecialchars($datos['ronda'] ?? ''); ?></p>
-                    <p class="canvas_format"><?php echo htmlspecialchars($datos['modalidad'] ?? ''); ?></p>
+                    <p class="canvas_format"><?php echo htmlspecialchars($datos['categoria'] ?? ''); ?></p>
+                    <p class="canvas_rounds"><?php echo htmlspecialchars($datos['ronda'] ?? 'Fases de Grupo'); ?></p>
 
                     <img src="images/logo.png" alt="Logo">
                     <div class="canvas_top-title">
@@ -84,28 +85,28 @@
                 <div class="canvas_scores">
                     <div class="canvas_scores-top canvas_scores-points">
                         <div class="masked">
-                            <p><?php echo htmlspecialchars(implode(' + ', $datos['jugadores']['equipo1'])); ?></p>
+                            <p><?php echo $datos['jugador_rival_uno'] ?? ''; ?></p>
                         </div>
                         <div class="canvas_scores-grid">
                             <?php
-                            for ($i = 1; $i <= 4; $i++) {
-                                if (isset($datos['resultados'][$i - 1]["ronda$i"]['equipo1'])) {
-                                    echo '<div class="span">' . htmlspecialchars($datos['resultados'][$i - 1]["ronda$i"]['equipo1']) . '</div>';
-                                }
+                            $resultado_ganador = $datos['resultado_ganador'];
+                            $resultado_ganador_array = explode('/', $resultado_ganador);
+                            foreach ($resultado_ganador_array as $index => $resultado) {
+                                echo '<div class="span">' . $resultado . '</div>';
                             }
                             ?>
                         </div>
                     </div>
                     <div class="canvas_scores-bottom canvas_scores-points">
                         <div class="masked">
-                            <p><?php echo htmlspecialchars(implode(' + ', $datos['jugadores']['equipo2'])); ?></p>
+                            <p><?php echo $datos['jugador_rival_dos'] ?? ''; ?></p>
                         </div>
                         <div class="canvas_scores-grid">
                             <?php
-                            for ($i = 1; $i <= 4; $i++) {
-                                if (isset($datos['resultados'][$i - 1]["ronda$i"]['equipo2'])) {
-                                    echo '<div class="span">' . htmlspecialchars($datos['resultados'][$i - 1]["ronda$i"]['equipo2']) . '</div>';
-                                }
+                            $resultado_rival = $datos['resultado_rival'];
+                            $resultado_rival_array = explode('/', $resultado_rival);
+                            foreach ($resultado_rival_array as $index => $resultado) {
+                                echo '<div class="span">' . $resultado . '</div>';
                             }
                             ?>
                         </div>
@@ -114,9 +115,29 @@
             </div>
         </div>
 
+        <?php
+        function to_make_image_name($cat = '', $group = '')
+        {
+            // Si $cat no está vacía
+            if (!empty($cat)) {
+                // Eliminar espacios y caracteres especiales
+                $cat = preg_replace('/[^A-Za-z0-9]/', '', $cat);
+            }
+
+            // Si $group no está vacía
+            if (!empty($group)) {
+                // Eliminar espacios y caracteres especiales
+                $group = preg_replace('/[^A-Za-z0-9]/', '', $group);
+            }
+
+            echo $cat . $group;
+        }
+        ?>
+
         <script src="js/html2canvas.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', (event) => {
+
                 let generateButton = document.querySelector('.generate_image'),
                     inputImage = document.querySelector('#imageUpload'),
                     generalDiagram = document.querySelector('.general_canvas');
@@ -204,7 +225,7 @@
                             }).then(canvas => {
                                 let width = canvas.width;
                                 let height = canvas.height;
-                                createCanvasAndDownload(canvas, 0, width, height, 1080, 1080, 'image.png');
+                                createCanvasAndDownload(canvas, 0, width, height, 1080, 1080, '<?php to_make_image_name($datos['categoria'], $datos['grupo']); ?>.jpg');
                             });
                         }, 100);
                     });

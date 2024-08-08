@@ -200,9 +200,10 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
 .canvas > * {
   width: 100%;
 }
-.canvas_rounds, .canvas_format {
+.canvas_rounds, .canvas_format, .canvas_group {
   position: absolute;
   color: white;
+  z-index: 3;
   font-style: italic;
 }
 .canvas_rounds {
@@ -211,11 +212,10 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   right: 99px;
 }
 .canvas_format {
-  font-size: 6em;
+  font-size: 5.25em;
   max-width: 400px;
   text-align: center;
   right: 86px;
-  z-index: 3;
   top: 38%;
 }
 .canvas_top {
