@@ -69,11 +69,23 @@
 
     <?php if (!empty($datos)) : ?>
         <div class="canvas_scroll w-100">
-            <div class="canvas general_canvas">
+            <div class="canvas general_canvas bg<?php echo rand(1, 6); ?>">
                 <div class="canvas_top">
 
-                    <p class="canvas_format"><?php echo htmlspecialchars($datos['categoria'] ?? ''); ?></p>
-                    <p class="canvas_rounds"><?php echo htmlspecialchars($datos['ronda'] ?? 'Fases de Grupo'); ?></p>
+                    <p class="canvas_format">
+                        <?php echo htmlspecialchars($datos['categoria'] ?? ''); ?>
+
+                        <?php if( !empty($datos['grupo']) && !is_null($datos['grupo']) ): ?>
+                        <small><?php echo $datos['grupo']; ?></small>
+                        <?php endif; ?>
+                    </p>
+                    <p class="canvas_rounds">
+                        <?php if(is_null($datos['grupo'])): ?>
+                        Fase de Grupos
+                        <?php else: ?>
+                        <?php echo htmlspecialchars($datos['ronda']); ?>
+                        <?php endif; ?>
+                    </p>
 
                     <img src="images/logo.png" alt="Logo">
                     <div class="canvas_top-title">

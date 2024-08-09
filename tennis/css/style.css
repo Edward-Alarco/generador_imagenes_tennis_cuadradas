@@ -181,13 +181,30 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   width: 2160px;
   aspect-ratio: 1/1;
   height: 2160px;
-  background: #3b1d3f url(../images/bg.jpeg) no-repeat;
-  background-size: cover;
-  background-position: center;
   padding-block: 80px 119px;
+  background-size: cover !important;
+  background-position: center !important;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.canvas.bg1 {
+  background: rgba(53, 26, 59, 0.8) url(../images/bg/bg1.jpeg) no-repeat;
+}
+.canvas.bg2 {
+  background: rgba(141, 126, 105, 0.8) url(../images/bg/bg2.jpeg) no-repeat;
+}
+.canvas.bg3 {
+  background: rgba(89, 118, 74, 0.8) url(../images/bg/bg3.jpeg) no-repeat;
+}
+.canvas.bg4 {
+  background: rgba(179, 140, 73, 0.8) url(../images/bg/bg4.jpeg) no-repeat;
+}
+.canvas.bg5 {
+  background: rgba(66, 80, 129, 0.8) url(../images/bg/bg5.jpeg) no-repeat;
+}
+.canvas.bg6 {
+  background: rgba(51, 129, 133, 0.8) url(../images/bg/bg6.jpeg) no-repeat;
 }
 .canvas_scroll {
   padding-bottom: 30px;
@@ -205,6 +222,13 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   color: white;
   z-index: 3;
   font-style: italic;
+  max-width: 400px;
+  text-align: center;
+}
+.canvas_rounds small, .canvas_format small, .canvas_group small {
+  display: block;
+  text-align: center;
+  font-size: 80%;
 }
 .canvas_rounds {
   font-size: 5em;
@@ -213,10 +237,8 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
 }
 .canvas_format {
   font-size: 5.25em;
-  max-width: 400px;
-  text-align: center;
   right: 86px;
-  top: 38%;
+  top: 36.75%;
 }
 .canvas_top {
   padding-inline: 88px 99px;

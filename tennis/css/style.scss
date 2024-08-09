@@ -180,10 +180,29 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
     width: 2160px;
     aspect-ratio: 1/1;
     height: 2160px;
-    background: #3b1d3f url(../images/bg.jpeg) no-repeat;
-    background-size: cover;
-    background-position: center;
     padding-block: 80px 119px;
+
+    &.bg1{
+        background: rgba($color: #351A3B, $alpha: 0.8) url(../images/bg/bg1.jpeg) no-repeat;
+    }
+    &.bg2{
+        background: rgba($color: #8D7E69, $alpha: 0.8) url(../images/bg/bg2.jpeg) no-repeat;
+    }
+    &.bg3{
+        background: rgba($color: #59764A, $alpha: 0.8) url(../images/bg/bg3.jpeg) no-repeat;
+    }
+    &.bg4{
+        background: rgba($color: #B38C49, $alpha: 0.8) url(../images/bg/bg4.jpeg) no-repeat;
+    }
+    &.bg5{
+        background: rgba($color: #425081, $alpha: 0.8) url(../images/bg/bg5.jpeg) no-repeat;
+    }
+    &.bg6{
+        background: rgba($color: #338185, $alpha: 0.8) url(../images/bg/bg6.jpeg) no-repeat;
+    }
+    
+    background-size: cover !important;
+    background-position: center !important;
 
     display: flex;
     flex-direction: column;
@@ -206,6 +225,13 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
         color: white;
         z-index: 3;
         font-style: italic;
+        small{
+            display: block;
+            text-align: center;
+            font-size: 80%;
+        }
+        max-width: 400px;
+        text-align: center;
     }
     &_rounds{
         font-size: 5em;
@@ -214,10 +240,8 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
     }
     &_format{
         font-size: 5.25em;
-        max-width: 400px;
-        text-align: center;
         right: 86px;
-        top: 38%;
+        top: 36.75%;
     }
     &_group{
         
