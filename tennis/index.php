@@ -101,7 +101,7 @@
                             <p>Ambos jugadores cargados correctamente.</p>
                         </li>
                     <?php else: ?>
-                        <?php if (isset($datos['jugador_ganador_uno']) && !empty($datos['jugador_ganador_uno'])): ?>
+                        <?php if (!isset($datos['jugador_ganador_uno']) || empty($datos['jugador_ganador_uno'])): ?>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
                                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
@@ -109,7 +109,7 @@
                                 <p>No encontramos el jugador 1 cargado.</p>
                             </li>
                         <?php endif; ?>
-                        <?php if (isset($datos['jugador_ganador_dos']) && !empty($datos['jugador_ganador_dos'])): ?>
+                        <?php if (!isset($datos['jugador_ganador_dos']) || empty($datos['jugador_ganador_dos'])): ?>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
                                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
