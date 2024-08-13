@@ -84,12 +84,49 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
             max-height: 100vh; 
         }
     }
+    &-test{
+        margin-block: 24px 10px;
+        ul{
+            list-style: none;
+        }
+        li{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            gap: 8px;
+            &:not(:last-child){
+                margin-bottom: 4px;
+            }
+            &.uploaded_photo{
+                margin-top: 16px;
+            }
+            p{
+                max-width: 350px;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                font-size: 15px;
+            }
+            svg{
+                width: 17px;
+                height: 17px;
+                object-fit: contain;
+                object-position: center;
+
+                &.check{
+                    color: #27ae60;
+                }
+                &.uncheck{
+                    color: #e74c3c;
+                }
+            }
+        }
+    }
     &-txt{
         padding: 2rem 5%;
         display: flex;
         align-items: flex-start;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         @media (max-width: 768px){
             min-height: 100vh !important;
             height: auto;

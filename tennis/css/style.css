@@ -80,12 +80,50 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
     max-height: 100vh;
   }
 }
+.hero_view-test {
+  margin-block: 24px 10px;
+}
+.hero_view-test ul {
+  list-style: none;
+}
+.hero_view-test li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 8px;
+}
+.hero_view-test li:not(:last-child) {
+  margin-bottom: 4px;
+}
+.hero_view-test li.uploaded_photo {
+  margin-top: 16px;
+}
+.hero_view-test li p {
+  max-width: 350px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15px;
+}
+.hero_view-test li svg {
+  width: 17px;
+  height: 17px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center;
+     object-position: center;
+}
+.hero_view-test li svg.check {
+  color: #27ae60;
+}
+.hero_view-test li svg.uncheck {
+  color: #e74c3c;
+}
 .hero_view-txt {
   padding: 2rem 5%;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 @media (max-width: 768px) {
   .hero_view-txt {

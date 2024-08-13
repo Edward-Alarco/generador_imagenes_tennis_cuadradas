@@ -9,9 +9,8 @@ async function detectFaces(image) {
 }
 
 function calculateExpand(boxes) {
-  if (boxes.length < 2) return 600; // Valor por defecto si solo hay una cara
+  if (boxes.length < 2) return 600;
 
-  // Calcular la distancia promedio entre las caras
   let totalDistance = 0;
   let count = 0;
 
@@ -27,47 +26,72 @@ function calculateExpand(boxes) {
 
   const averageDistance = totalDistance / count;
 
-  // Ajustar el valor de expand basado en la distancia promedio
-  // Cuanto menor sea la distancia, mayor será el valor de expand
+  // Ajuste del expand basado en la distancia y tamaño de las caras
   return Math.max(600 - averageDistance / 2, 100);
 }
 
-function cropImage(image, boxes, expand, targetWidth = 1500, targetHeight = 1000) {
+function calculateZoom(boxes) {
+  let faceSizes = boxes.map(box => box.width * box.height);
+  let avgFaceSize = faceSizes.reduce((a, b) => a + b, 0) / faceSizes.length;
+
+  const referenceFaceSize = 5000; // Valor de referencia para distinguir entre cerca y lejos.
+
+  if (avgFaceSize > referenceFaceSize) {
+    console.log('cerca')
+    return -0.04;
+  } else {
+    console.log('lejos')
+    return -0.1;
+  }
+}
+
+function cropImage(image, boxes, expand) {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
-  // Calcular la caja delimitadora para todas las caras
+  const targetAspectRatio = 16 / 10; // Aspect-ratio 16:10
+  const targetWidth = 1600; // Puedes ajustar estos valores según tu necesidad
+  const targetHeight = targetWidth / targetAspectRatio;
+
   let minX = Math.max(0, Math.min(...boxes.map((box) => box.left)) - expand);
   let minY = Math.max(0, Math.min(...boxes.map((box) => box.top)) - expand);
-  let maxX = Math.min(
-    image.width,
-    Math.max(...boxes.map((box) => box.right)) + expand
-  );
-  let maxY = Math.min(
-    image.height,
-    Math.max(...boxes.map((box) => box.bottom)) + expand
-  );
+  let maxX = Math.min(image.width, Math.max(...boxes.map((box) => box.right)) + expand);
+  let maxY = Math.min(image.height, Math.max(...boxes.map((box) => box.bottom)) + expand);
 
   let width = maxX - minX;
   let height = maxY - minY;
 
-  // Mantener la relación de aspecto de las dimensiones objetivo
-  const targetAspectRatio = targetWidth / targetHeight;
   const currentAspectRatio = width / height;
 
+  // Aplicar zoom basado en si están cercas o lejos
+  let zoom = calculateZoom(boxes);
+
+  width *= (1 + zoom);
+  height *= (1 + zoom);
+
+  // Ajustar las coordenadas de minX y minY para asegurar que la imagen no se salga del canvas
+  if (minX < 0) minX = 0;
+  if (minY < 0) minY = 0;
+  if (maxX > image.width) maxX = image.width;
+  if (maxY > image.height) maxY = image.height;
+
+  // Recalcular las dimensiones después del zoom y asegurar que no se salgan del canvas
+  if (minX + width > image.width) {
+    width = image.width - minX;
+  }
+  if (minY + height > image.height) {
+    height = image.height - minY;
+  }
+
   if (currentAspectRatio > targetAspectRatio) {
-    // El ancho es demasiado grande; ajustarlo para mantener la relación de aspecto
     const newWidth = height * targetAspectRatio;
     const delta = (width - newWidth) / 2;
     minX += delta;
-    maxX -= delta;
     width = newWidth;
   } else if (currentAspectRatio < targetAspectRatio) {
-    // La altura es demasiado grande; ajustarla para mantener la relación de aspecto
     const newHeight = width / targetAspectRatio;
     const delta = (height - newHeight) / 2;
     minY += delta;
-    maxY -= delta;
     height = newHeight;
   }
 
@@ -79,9 +103,9 @@ function cropImage(image, boxes, expand, targetWidth = 1500, targetHeight = 1000
   return canvas.toDataURL();
 }
 
-document.getElementById("imageUpload").addEventListener("change", async (event) => {
 
-  var file = event.target.files[0];
+document.getElementById("imageUpload").addEventListener("change", async (event) => {
+  const file = event.target.files[0];
 
   if (!document.body.classList.contains('loading')) {
     document.body.classList.add('loading');
@@ -89,7 +113,7 @@ document.getElementById("imageUpload").addEventListener("change", async (event) 
 
   document.querySelector('.generate_image').disabled = true;
 
-  if(!file){
+  if (!file) {
     if (document.body.classList.contains('loading')) {
       document.body.classList.remove('loading');
     }
@@ -105,6 +129,10 @@ document.getElementById("imageUpload").addEventListener("change", async (event) 
 
     document.getElementById("imageContainer").innerHTML = '';
 
+    if (document.querySelector('.uploaded_photo')) {
+      document.querySelector('.uploaded_photo').parentElement.removeChild(document.querySelector('.uploaded_photo'));
+    }
+
     if (detections.length > 0) {
       const boxes = detections.map((d) => d.detection.box);
       const expand = calculateExpand(boxes);
@@ -113,13 +141,23 @@ document.getElementById("imageUpload").addEventListener("change", async (event) 
       imgElement.src = croppedImage;
 
       document.querySelector('.generate_image').disabled = false;
-
       document.getElementById("imageContainer").appendChild(imgElement);
+
+      const li = document.createElement('li');
+      li.classList.add('uploaded_photo');
+      li.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
+          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
+        </svg>
+        <p>Foto cargada correctamente.</p>
+      `;
+
+      document.querySelector('ul#testing').appendChild(li);
 
       if (document.body.classList.contains('loading')) {
         document.body.classList.remove('loading');
       }
-    }else{
+    } else {
 
       if (document.body.classList.contains('loading')) {
         document.body.classList.remove('loading');
@@ -127,9 +165,8 @@ document.getElementById("imageUpload").addEventListener("change", async (event) 
       document.getElementById("imageUpload").value = '';
 
       setTimeout(() => {
-        alert('No se pudo reconocer alguna cara en la imagen.')
+        alert('No se pudo reconocer alguna cara en la imagen.');
       }, 500);
-      
     }
   };
 });

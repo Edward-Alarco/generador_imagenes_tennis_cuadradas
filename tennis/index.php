@@ -27,6 +27,73 @@
         <div class="hero_view-txt wh-100">
             <h1>Generador <br>de Imágenes</h1>
 
+            <div class="hero_view-test w-100">
+                <ul id="testing">
+                    <?php if (isset($datos['titulo']) && !empty($datos['titulo'])): ?>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
+                            </svg>
+                            <p>Título cargado correctamente.</p>
+                        </li>
+                    <?php else: ?>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
+                            </svg>
+                            <p>Error al cargar el título.</p>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if (isset($datos['categoria']) && !empty($datos['categoria'])): ?>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
+                            </svg>
+                            <p>Categor&iacute;a cargado correctamente.</p>
+                        </li>
+                    <?php else: ?>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
+                            </svg>
+                            <p>Error al cargar la categor&iacute;a.</p>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if (isset($datos['grupo']) && !empty($datos['grupo'])): ?>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
+                            </svg>
+                            <p>Grupo cargado correctamente.</p>
+                        </li>
+                    <?php else: ?>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
+                            </svg>
+                            <p>No se encontró el grupo, por lo que se tomará <b>Fase de Grupos</b> por defecto.</p>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if (isset($datos['ronda']) && !empty($datos['ronda'])): ?>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
+                            </svg>
+                            <p>Ronda cargada correctamente.</p>
+                        </li>
+                    <?php else: ?>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
+                            </svg>
+                            <p>Error al cargar la ronda.</p>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
             <div class="w-100 hero_view-input">
                 <label for="imageUpload" class="labelFile">
                     <span>
@@ -75,15 +142,15 @@
                     <p class="canvas_format">
                         <?php echo htmlspecialchars($datos['categoria'] ?? ''); ?>
 
-                        <?php if( !empty($datos['grupo']) && !is_null($datos['grupo']) ): ?>
-                        <small><?php echo $datos['grupo']; ?></small>
+                        <?php if (!empty($datos['grupo']) && !is_null($datos['grupo'])): ?>
+                            <small><?php echo $datos['grupo']; ?></small>
                         <?php endif; ?>
                     </p>
                     <p class="canvas_rounds">
-                        <?php if(is_null($datos['grupo'])): ?>
-                        Fase de Grupos
+                        <?php if (is_null($datos['grupo'])): ?>
+                            Fase de Grupos
                         <?php else: ?>
-                        <?php echo htmlspecialchars($datos['ronda']); ?>
+                            <?php echo htmlspecialchars($datos['ronda']); ?>
                         <?php endif; ?>
                     </p>
 
@@ -247,5 +314,4 @@
     <?php endif; ?>
 
 </body>
-
 </html>
