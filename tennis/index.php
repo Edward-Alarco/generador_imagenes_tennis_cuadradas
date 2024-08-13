@@ -70,8 +70,8 @@
                         </li>
                     <?php else: ?>
                         <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
-                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
                             </svg>
                             <p>No se encontró el grupo, por lo que se tomará <b>Fase de Grupos</b> por defecto.</p>
                         </li>
@@ -91,6 +91,32 @@
                             </svg>
                             <p>Error al cargar la ronda.</p>
                         </li>
+                    <?php endif; ?>
+
+                    <?php if (isset($datos['jugador_ganador_uno']) && !empty($datos['jugador_ganador_uno']) && isset($datos['jugador_ganador_dos']) && !empty($datos['jugador_ganador_dos'])): ?>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
+                            </svg>
+                            <p>Ambos jugadores cargados correctamente.</p>
+                        </li>
+                    <?php else: ?>
+                        <?php if (isset($datos['jugador_ganador_uno']) && !empty($datos['jugador_ganador_uno'])): ?>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
+                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
+                                </svg>
+                                <p>No encontramos el jugador 1 cargado.</p>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (isset($datos['jugador_ganador_dos']) && !empty($datos['jugador_ganador_dos'])): ?>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
+                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
+                                </svg>
+                                <p>No encontramos el jugador 2 cargado.</p>
+                            </li>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -314,4 +340,5 @@
     <?php endif; ?>
 
 </body>
+
 </html>
