@@ -154,6 +154,8 @@
 
             <canvas id="canvas" style="display:none;"></canvas>
             <button type="button" class="generate_image" disabled>Generar →</button>
+
+            <br><br><br><br><br><br><br>
         </div>
         <div class="hero_view-img wh-100">
             <img src="images/hero_img.jpg">

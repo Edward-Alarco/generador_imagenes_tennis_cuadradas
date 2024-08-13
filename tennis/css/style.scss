@@ -139,6 +139,12 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
             letter-spacing: .4px;
             font-weight: 500;
         }
+
+        &>br{
+            @media (min-width: 800px){
+                display: none;
+            }
+        }
        
         .generate_image{
             padding: 15px 20px;
