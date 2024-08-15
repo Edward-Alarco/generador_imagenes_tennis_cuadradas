@@ -160,7 +160,7 @@ document.getElementById("imageUpload").addEventListener("change", async (event) 
         <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
           <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
         </svg>
-        <p>Foto cargada correctamente! <br>Se encontraron <b>${detections.length} rostros</b>. Además, se consideran <b>${croppedData.distance}</b> del encuadre de la foto.</p>
+        <p>Foto cargada correctamente! <br>Se encontraron <b>${detections.length} rostros</b>. Además, se considera(n) <b>${croppedData.distance}</b> del encuadre de la foto.</p>
       `;
 
       document.querySelector('ul#testing').appendChild(li);
