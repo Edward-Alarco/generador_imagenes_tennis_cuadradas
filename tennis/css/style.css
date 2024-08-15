@@ -28,6 +28,99 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   font-family: "Anton";
 }
 
+.popup_cropper {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+.popup_cropper > * {
+  transition: all 0.3s ease;
+  position: absolute;
+}
+.popup_cropper-bg {
+  z-index: 101;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+.popup_cropper-box {
+  z-index: 102;
+  min-height: 200px;
+  padding: 2.15rem;
+  max-height: 92vh;
+  width: min(95%, 1000px);
+  top: 50%;
+  left: 50%;
+  background: white;
+  transform: translate(-50%, -50%);
+}
+@media (max-width: 600px) {
+  .popup_cropper-box {
+    padding: 1.8rem 1.3rem;
+  }
+}
+.popup_cropper-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 20px;
+  flex-wrap: wrap;
+}
+.popup_cropper-actions button {
+  width: 140px;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 10px;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.popup_cropper-actions button > * {
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+.popup_cropper-actions button svg {
+  max-width: 20px;
+}
+.popup_cropper-actions button:hover {
+  background: black;
+  color: white;
+}
+.popup_cropper-actions button:hover svg {
+  fill: white;
+}
+.popup_cropper-canvas {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+.popup_cropper-canvas img {
+  display: block;
+  margin-inline: auto;
+  width: auto;
+  max-width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  max-height: 72vh;
+  -o-object-position: center;
+     object-position: center;
+}
+.popup_cropper:not(.active) {
+  opacity: 0;
+  pointer-events: none;
+}
+.popup_cropper:not(.active) > * {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .loader {
   width: 48px;
   height: 48px;
