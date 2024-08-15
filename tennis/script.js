@@ -36,13 +36,20 @@ function calculateZoom(boxes) {
 
   const referenceFaceSize = 5000; // Valor de referencia para distinguir entre cerca y lejos.
 
+  let result = {
+    zoom: 0,
+    distance: ''
+  };
+
   if (avgFaceSize > referenceFaceSize) {
-    console.log('cerca')
-    return -0.04;
+    result.zoom = -0.04;
+    result.distance = 'cerca';
   } else {
-    console.log('lejos')
-    return -0.1;
+    result.zoom = 0.10;
+    result.distance = 'lejos';
   }
+
+  return result;
 }
 
 function cropImage(image, boxes, expand) {
@@ -126,50 +133,52 @@ document.getElementById("imageUpload").addEventListener("change", async (event) 
 
   image.onload = async () => {
     const detections = await detectFaces(image);
-
+  
     document.getElementById("imageContainer").innerHTML = '';
-
+  
     if (document.querySelector('.uploaded_photo')) {
       document.querySelector('.uploaded_photo').parentElement.removeChild(document.querySelector('.uploaded_photo'));
     }
-
+  
     console.log(detections.length);
     if (detections.length > 0) {
       const boxes = detections.map((d) => d.detection.box);
       const expand = calculateExpand(boxes);
+      const zoomInfo = calculateZoom(boxes);
       const croppedImage = cropImage(image, boxes, expand);
       const imgElement = document.createElement("img");
       imgElement.src = croppedImage;
-
+  
       document.querySelector('.generate_image').disabled = false;
       document.getElementById("imageContainer").appendChild(imgElement);
-
+  
       const li = document.createElement('li');
       li.classList.add('uploaded_photo');
       li.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
           <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
         </svg>
-        <p>Foto cargada correctamente: ${detections.length} rostros encontrados.</p>
+        <p>Foto cargada correctamente! <br>Se encontraron <b>${detections.length} rostros</b>. Además, se consideran <b>${zoomInfo.distance}</b> del encuadre de la foto.</p>
       `;
-
+  
       document.querySelector('ul#testing').appendChild(li);
-
+  
       if (document.body.classList.contains('loading')) {
         document.body.classList.remove('loading');
       }
     } else {
-
+  
       if (document.body.classList.contains('loading')) {
         document.body.classList.remove('loading');
       }
       document.getElementById("imageUpload").value = '';
-
+  
       setTimeout(() => {
         alert('No se pudo reconocer alguna cara en la imagen.');
       }, 500);
     }
   };
+  
 });
 
 loadModels();
