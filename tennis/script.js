@@ -42,10 +42,10 @@ function calculateZoom(boxes) {
   };
 
   if (avgFaceSize > referenceFaceSize) {
-    result.zoom = -0.04; // Reducción del 4% en el zoom
+    result.zoom = -0.008; // Reducción del 0.8% en el zoom
     result.distance = 'cerca';
   } else {
-    result.zoom = 0.10; // Aumento del 10% en el zoom
+    result.zoom = 0.25; // Aumento del 25% en el zoom
     result.distance = 'lejos';
   }
 
