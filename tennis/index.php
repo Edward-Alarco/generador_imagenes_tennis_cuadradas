@@ -93,7 +93,7 @@
                         </li>
                     <?php endif; ?>
 
-                    <?php if (isset($datos['jugador_ganador_uno']) && !empty($datos['jugador_ganador_uno']) && isset($datos['jugador_ganador_dos']) && !empty($datos['jugador_ganador_dos'])): ?>
+                    <?php if (isset($datos['jugador_ganador_uno']) && !empty($datos['jugador_ganador_uno']) && isset($datos['jugador_rival_uno']) && !empty($datos['jugador_rival_uno'])): ?>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
@@ -109,7 +109,7 @@
                                 <p>No encontramos el jugador 1 cargado.</p>
                             </li>
                         <?php endif; ?>
-                        <?php if (!isset($datos['jugador_ganador_dos']) || empty($datos['jugador_ganador_dos'])): ?>
+                        <?php if (!isset($datos['jugador_rival_uno']) || empty($datos['jugador_rival_uno'])): ?>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
                                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />

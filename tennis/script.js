@@ -26,7 +26,6 @@ function calculateExpand(boxes) {
 
   const averageDistance = totalDistance / count;
 
-  // Ajuste del expand basado en la distancia y tamaño de las caras
   return Math.max(600 - averageDistance / 2, 100);
 }
 
@@ -34,7 +33,7 @@ function calculateZoom(boxes) {
   let faceSizes = boxes.map(box => box.width * box.height);
   let avgFaceSize = faceSizes.reduce((a, b) => a + b, 0) / faceSizes.length;
 
-  const referenceFaceSize = 5000; // Valor de referencia para distinguir entre cerca y lejos.
+  const referenceFaceSize = 5000;
 
   let result = {
     zoom: 0,
@@ -42,10 +41,10 @@ function calculateZoom(boxes) {
   };
 
   if (avgFaceSize > referenceFaceSize) {
-    result.zoom = -0.008; // Reducción del 0.8% en el zoom
+    result.zoom = -0.008;
     result.distance = 'cerca';
   } else {
-    result.zoom = 0.25; // Aumento del 25% en el zoom
+    result.zoom = 0.25;
     result.distance = 'lejos';
   }
 
@@ -56,8 +55,8 @@ function cropImage(image, boxes, expand) {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
-  const targetAspectRatio = 16 / 10; // Aspect-ratio 16:10
-  const targetWidth = 1600; // Puedes ajustar estos valores según tu necesidad
+  const targetAspectRatio = 16 / 10;
+  const targetWidth = 1600;
   const targetHeight = targetWidth / targetAspectRatio;
 
   let minX = Math.max(0, Math.min(...boxes.map((box) => box.left)) - expand);
@@ -70,26 +69,11 @@ function cropImage(image, boxes, expand) {
 
   const currentAspectRatio = width / height;
 
-  // Aplicar zoom basado en si están cercas o lejos
   const zoomInfo = calculateZoom(boxes);
   let zoom = zoomInfo.zoom;
 
   width *= (1 + zoom);
   height *= (1 + zoom);
-
-  // Ajustar las coordenadas de minX y minY para asegurar que la imagen no se salga del canvas
-  if (minX < 0) minX = 0;
-  if (minY < 0) minY = 0;
-  if (maxX > image.width) maxX = image.width;
-  if (maxY > image.height) maxY = image.height;
-
-  // Recalcular las dimensiones después del zoom y asegurar que no se salgan del canvas
-  if (minX + width > image.width) {
-    width = image.width - minX;
-  }
-  if (minY + height > image.height) {
-    height = image.height - minY;
-  }
 
   if (currentAspectRatio > targetAspectRatio) {
     const newWidth = height * targetAspectRatio;
@@ -106,11 +90,12 @@ function cropImage(image, boxes, expand) {
   canvas.width = targetWidth;
   canvas.height = targetHeight;
 
-  context.drawImage(image, minX, minY, width, height, 0, 0, targetWidth, targetHeight);
+  // Ajuste para evitar la distorsión manteniendo el aspecto original
+  context.drawImage(image, minX, minY, width, height, 0, 0, canvas.width, canvas.height);
 
   return {
     croppedImage: canvas.toDataURL(),
-    distance: zoomInfo.distance // Devolver la información sobre la distancia
+    distance: zoomInfo.distance
   };
 }
 
@@ -143,7 +128,6 @@ document.getElementById("imageUpload").addEventListener("change", async (event) 
       document.querySelector('.uploaded_photo').parentElement.removeChild(document.querySelector('.uploaded_photo'));
     }
 
-    console.log(detections.length);
     if (detections.length > 0) {
       const boxes = detections.map((d) => d.detection.box);
       const expand = calculateExpand(boxes);
