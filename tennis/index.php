@@ -192,7 +192,11 @@
                 <div class="canvas_scores">
                     <div class="canvas_scores-top canvas_scores-points">
                         <div class="masked">
-                            <p><?php echo $datos['jugador_rival_uno'] ?? ''; ?></p>
+                            <?php if (isset($datos['jugador_ganador_dos']) && !empty($datos['jugador_ganador_dos'])): ?>
+                                <p class="less"><?php echo $datos['jugador_ganador_uno'] . ' + ' . $datos['jugador_ganador_dos']; ?></p>
+                            <?php else: ?>
+                                <p><?php echo $datos['jugador_ganador_uno'] ?? ''; ?></p>
+                            <?php endif; ?>
                         </div>
                         <div class="canvas_scores-grid">
                             <?php
@@ -206,7 +210,11 @@
                     </div>
                     <div class="canvas_scores-bottom canvas_scores-points">
                         <div class="masked">
-                            <p><?php echo $datos['jugador_rival_dos'] ?? ''; ?></p>
+                            <?php if (isset($datos['jugador_ganador_dos']) && !empty($datos['jugador_ganador_dos'])): ?>
+                                <p class="less"><?php echo $datos['jugador_rival_uno'].' + '.$datos['jugador_rival_dos']; ?></p>
+                            <?php else: ?>
+                                <p><?php echo $datos['jugador_rival_uno'] ?? ''; ?></p>
+                            <?php endif; ?>
                         </div>
                         <div class="canvas_scores-grid">
                             <?php

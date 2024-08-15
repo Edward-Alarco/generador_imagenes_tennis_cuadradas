@@ -20,10 +20,6 @@
   height: 100vh;
 }
 
-body {
-  overflow: hidden;
-}
-
 label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   font-family: "Anton";
 }
@@ -63,6 +59,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
 }
 
 .hero_view {
+  display: none !important;
   position: fixed;
   inset: 0;
   display: grid;
@@ -252,10 +249,6 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
 .canvas_scroll {
   padding-bottom: 30px;
   overflow-x: scroll;
-  pointer-events: none;
-  opacity: 0;
-  position: absolute;
-  z-index: -1;
 }
 .canvas > * {
   width: 100%;
@@ -349,6 +342,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   display: flex;
   align-items: center;
   position: relative;
+  padding-left: 20px;
   /*&.masked {
       mask-image: url(#mask1);
       -webkit-mask-image: url(#mask1);
@@ -399,9 +393,15 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
 .canvas_scores-points > div p {
   position: relative;
   z-index: 2;
-  font-size: 7em;
   text-align: center;
   font-style: italic;
+  line-height: 1.05em;
+}
+.canvas_scores-points > div p:not(.less) {
+  font-size: 7em;
+}
+.canvas_scores-points > div p.less {
+  font-size: 5.9em;
 }
 .canvas_scores-points > div:nth-child(1) {
   justify-content: center;
