@@ -23,7 +23,7 @@ $verde: #a0bc30;
 }
 
 body{
-    // overflow: hidden;
+    overflow: hidden;
 }
 
 label, button, input, p, h1, h2, h3, h4, h5, h6, span{
@@ -69,7 +69,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
 }
 
 .hero_view{
-    display: none !important;
+    // display: none !important;
     
     position: fixed;
     inset: 0;
@@ -255,10 +255,10 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
         padding-bottom: 30px;
         overflow-x: scroll;
         
-        // pointer-events: none;
-        // opacity: 0;
-        // position: absolute;
-        // z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
     }
     &>*{
         width: 100%;
