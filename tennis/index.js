@@ -37,7 +37,7 @@
 
 
                     cropper = new Cropper(img, {
-                        aspectRatio: 16/10
+                        aspectRatio: 1.502/1.008
                     });
 
                 };
