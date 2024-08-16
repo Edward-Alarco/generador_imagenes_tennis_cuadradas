@@ -229,7 +229,7 @@
                             $resultado_ganador = $datos['resultado_ganador'];
                             $resultado_ganador_array = explode('/', $resultado_ganador);
                             foreach ($resultado_ganador_array as $index => $resultado) {
-                                echo '<div class="span">' . $resultado . '</div>';
+                                echo '<p class="span">' . $resultado . '</p>';
                             }
                             ?>
                         </div>
@@ -247,7 +247,7 @@
                             $resultado_rival = $datos['resultado_rival'];
                             $resultado_rival_array = explode('/', $resultado_rival);
                             foreach ($resultado_rival_array as $index => $resultado) {
-                                echo '<div class="span">' . $resultado . '</div>';
+                                echo '<p class="span">' . $resultado . '</p>';
                             }
                             ?>
                         </div>

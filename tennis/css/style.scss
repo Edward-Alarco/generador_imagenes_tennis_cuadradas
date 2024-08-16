@@ -475,11 +475,28 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
                     font-style: italic;
                     line-height: 1.05em;
                     
-                    &:not(.less){
+                    &:not(.less, .span){
                         font-size: 7em;
                     }
                     &.less{
                         font-size: 5.9em;
+                    }
+                    &.span{
+                        font-size: 6.25em;
+
+                        &:not(:last-child){
+                            &::before{
+                                position: absolute;
+                                content: '';
+                                width: 9px;
+                                border-radius: 50px;
+                                background: white;
+                                height: calc(100% + 20px);
+                                left: calc(100% + (49px / 2));
+                                top: 50%;
+                                transform: translateY(-50%) rotate(26deg);
+                            }
+                        }
                     }
                 }
                 
@@ -548,6 +565,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
                 font-style: italic;
                 font-size: 6.25em;
                 // font-weight: bold;
+                font-weight: 300;
                 position: relative;
                 z-index: 2;
                 text-align: center;

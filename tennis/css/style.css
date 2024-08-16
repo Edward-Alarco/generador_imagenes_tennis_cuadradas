@@ -497,11 +497,25 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   font-style: italic;
   line-height: 1.05em;
 }
-.canvas_scores-points > div p:not(.less) {
+.canvas_scores-points > div p:not(.less, .span) {
   font-size: 7em;
 }
 .canvas_scores-points > div p.less {
   font-size: 5.9em;
+}
+.canvas_scores-points > div p.span {
+  font-size: 6.25em;
+}
+.canvas_scores-points > div p.span:not(:last-child)::before {
+  position: absolute;
+  content: "";
+  width: 9px;
+  border-radius: 50px;
+  background: white;
+  height: calc(100% + 20px);
+  left: calc(100% + 24.5px);
+  top: 50%;
+  transform: translateY(-50%) rotate(26deg);
 }
 .canvas_scores-points > div:nth-child(1) {
   justify-content: center;
@@ -531,6 +545,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   color: #000;
   font-style: italic;
   font-size: 6.25em;
+  font-weight: 300;
   position: relative;
   z-index: 2;
   text-align: center;

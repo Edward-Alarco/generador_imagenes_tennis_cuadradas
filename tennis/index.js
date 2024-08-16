@@ -10,8 +10,6 @@
 
 	if (inputFile) {
 
-        alert('1');
-
 		inputFile.addEventListener("change", function (e) {
 			document.body.classList.add("loading");
 
@@ -52,13 +50,18 @@
             popupCropper.querySelector('#cut').addEventListener('click', (e) => {
                 e.preventDefault();
 
-                // Añadir temporalmente el canvas al DOM
                 const canvas = cropper.getCroppedCanvas();
-                popupCropperCanvas.appendChild(canvas);
+                console.log("Canvas generado:", canvas);
 
                 var croppedImage = canvas.toDataURL("image/png");
-                image4Photo.src = croppedImage;
-                document.querySelector('.generate_image').disabled = false;
+                console.log("DataURL generado:", croppedImage);
+
+                if (croppedImage) {
+                    image4Photo.src = croppedImage;
+                    document.querySelector('.generate_image').disabled = false;
+                } else {
+                    console.error("Error al generar el DataURL.");
+                }
 
                 resetCropper();
             });
