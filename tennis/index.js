@@ -9,6 +9,9 @@
     let cropper;
 
 	if (inputFile) {
+
+        alert('1');
+
 		inputFile.addEventListener("change", function (e) {
 			document.body.classList.add("loading");
 
@@ -35,9 +38,8 @@
 
                     popupCropper.classList.add("active");
 
-
                     cropper = new Cropper(img, {
-                        aspectRatio: 1.502/1.008
+                        aspectRatio: 1.502 / 1.008
                     });
 
                 };
@@ -47,18 +49,21 @@
                 
             }, 1000);
 
-
-            popupCropper.querySelector('#cut').addEventListener('click', (e)=>{
+            popupCropper.querySelector('#cut').addEventListener('click', (e) => {
                 e.preventDefault();
 
-                var croppedImage = cropper.getCroppedCanvas().toDataURL("image/png");
+                // Añadir temporalmente el canvas al DOM
+                const canvas = cropper.getCroppedCanvas();
+                popupCropperCanvas.appendChild(canvas);
+
+                var croppedImage = canvas.toDataURL("image/png");
                 image4Photo.src = croppedImage;
                 document.querySelector('.generate_image').disabled = false;
 
                 resetCropper();
-            })
+            });
 
-            popupCropper.querySelector('#clean').addEventListener('click', (e)=>{
+            popupCropper.querySelector('#clean').addEventListener('click', (e) => {
                 e.preventDefault();
                 resetCropper();
             });
@@ -67,7 +72,7 @@
 
 
         function resetCropper(){
-            if(popupCropper.classList.contains("active")){
+            if (popupCropper.classList.contains("active")) {
                 popupCropper.classList.remove("active");
             }
             document.getElementById("imageUpload").value = '';
