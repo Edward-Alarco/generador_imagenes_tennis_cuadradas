@@ -8,6 +8,44 @@
   box-sizing: border-box;
 }
 
+.hero_view-txt .generate_image, .popup_cropper-actions button {
+  width: 140px;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+  text-transform: uppercase;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 10px;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.hero_view-txt .generate_image > *, .popup_cropper-actions button > * {
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+.hero_view-txt .generate_image svg, .popup_cropper-actions button svg {
+  max-width: 20px;
+}
+.hero_view-txt .generate_image:is(:hover, :focus), .popup_cropper-actions button:is(:hover, :focus) {
+  background: black;
+  color: white;
+}
+.hero_view-txt .generate_image:is(:hover, :focus) svg, .popup_cropper-actions button:is(:hover, :focus) svg {
+  fill: white;
+}
+.hero_view-txt .generate_image:disabled, .popup_cropper-actions button:disabled {
+  opacity: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
 .w-100, .wh-100vh, .wh-100 {
   width: 100%;
 }
@@ -68,34 +106,6 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   justify-content: center;
   gap: 8px 20px;
   flex-wrap: wrap;
-}
-.popup_cropper-actions button {
-  width: 140px;
-  border: 2px solid black;
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 10px;
-  justify-content: center;
-  font-size: 1rem;
-  padding: 10px;
-  background: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.popup_cropper-actions button > * {
-  transition: all 0.3s ease;
-  pointer-events: none;
-}
-.popup_cropper-actions button svg {
-  max-width: 20px;
-}
-.popup_cropper-actions button:hover {
-  background: black;
-  color: white;
-}
-.popup_cropper-actions button:hover svg {
-  fill: white;
 }
 .popup_cropper-canvas {
   width: 100%;
@@ -237,31 +247,12 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
     display: none;
   }
 }
-.hero_view-txt .generate_image {
-  padding: 15px 20px;
-  min-width: 150px;
-  text-transform: uppercase;
-  border: none;
-  outline: none;
-  background-color: #151515;
-  color: #eee;
-  border-radius: 7px;
-  font-weight: 300;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.25s ease-out;
-}
-.hero_view-txt .generate_image:hover {
-  transform: translateY(-3px);
-}
-.hero_view-txt .generate_image:disabled {
-  opacity: 0.66;
-  cursor: not-allowed;
-}
 .hero_view-input {
   margin-block: 20px;
-  width: 250px;
-  height: 190px;
+  width: 300px;
+  min-height: 100px;
+  aspect-ratio: 1.502/1.008;
+  height: auto;
   position: relative;
   border: 2px dashed #ccc;
 }
@@ -289,6 +280,48 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   max-width: 200px;
   margin-inline: auto;
   text-align: center;
+}
+.hero_view-input .delete_preview {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 30px;
+  z-index: 3;
+  height: 30px;
+  border-radius: 50%;
+  background: #000;
+  cursor: pointer;
+  border: none;
+}
+.hero_view-input .delete_preview svg {
+  pointer-events: none;
+  fill: white;
+  width: 100%;
+  height: 100%;
+}
+.hero_view-input .delete_preview path {
+  pointer-events: none;
+  stroke: white;
+}
+.hero_view-input:not(.with_preview) .delete_preview {
+  display: none;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.hero_view-input.with_preview {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+.hero_view-input.with_preview .input, .hero_view-input.with_preview .labelFile {
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  opacity: 0;
 }
 .hero_view-img {
   overflow: hidden;

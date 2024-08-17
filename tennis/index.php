@@ -174,10 +174,20 @@
                     <p>Arrastre y suelte su foto o haga clic para subir una.</p>
                 </label>
                 <input class="input" type="file" id="imageUpload" accept=".jpg, .jpeg, .png">
+                <button class="delete_preview" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
+                    </svg>
+                </button>
             </div>
 
             <canvas id="canvas" style="display:none;"></canvas>
-            <button type="button" class="generate_image" disabled>Generar →</button>
+            <button type="button" class="generate_image" disabled>
+                Generar
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z" />
+                </svg>
+            </button>
 
             <br><br><br><br><br><br><br>
         </div>

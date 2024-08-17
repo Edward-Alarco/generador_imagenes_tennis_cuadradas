@@ -11,6 +11,49 @@ $verde: #a0bc30;
     box-sizing: border-box;
 }
 
+@mixin transition{
+    transition: all .3s ease;
+}
+
+%button{
+    width: 140px;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    text-transform: uppercase;
+    justify-content: center;
+    // margin-inline: auto;
+    font-size: 1rem;
+    padding: 10px;
+    background: none;
+    cursor: pointer;
+    @include transition();
+    &>*{
+        @include transition();
+        pointer-events: none;
+    }
+    svg{
+        max-width: 20px;
+    }
+    &:is(:hover, :focus){
+        background: black;
+        color: white;
+        svg{
+            fill: white;
+        }
+    }
+    &:disabled{
+        // opacity: 0.66;
+        // cursor: not-allowed;
+        opacity: 0;
+        user-select: none;
+        pointer-events: none;
+        -webkit-user-drag: none;
+    }
+}
+
 .w-100{width: 100%;}
 .h-100{height: 100%;}
 .wh-100{
@@ -33,10 +76,6 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
 @mixin fullWH{
     width: 100%;
     height: 100%;
-}
-
-@mixin transition{
-    transition: all .3s ease;
 }
 
 .popup_cropper{
@@ -77,33 +116,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
         gap: 8px 20px;
         flex-wrap: wrap;
         button{
-            width: 140px;
-            border: 2px solid black;
-            display: flex;
-            align-items: center;
-            flex-wrap: nowrap;
-            gap: 10px;
-            justify-content: center;
-            // margin-inline: auto;
-            font-size: 1rem;
-            padding: 10px;
-            background: none;
-            cursor: pointer;
-            @include transition();
-            &>*{
-                @include transition();
-                pointer-events: none;
-            }
-            svg{
-                max-width: 20px;
-            }
-            &:hover{
-                background: black;
-                color: white;
-                svg{
-                    fill: white;
-                }
-            }
+            @extend %button;
         }
     }
     &-canvas{
@@ -242,31 +255,15 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
         }
        
         .generate_image{
-            padding: 15px 20px;
-            min-width: 150px;
-            text-transform: uppercase;
-            border: none;
-            outline: none;
-            background-color: #151515;
-            color: #eee;
-            border-radius: 7px;
-            font-weight: 300;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.25s ease-out;
-            &:hover{
-                transform: translateY(-3px);
-            }
-            &:disabled{
-                opacity: 0.66;
-                cursor: not-allowed;
-            }
+            @extend %button;
         }
     }
     &-input{
         margin-block: 20px;
-        width: 250px;
-        height: 190px;
+        width: 300px;
+        min-height: 100px;
+        aspect-ratio: 1.502 / 1.008;
+        height: auto;
         position: relative;
         border: 2px dashed #ccc;
         .input{
@@ -291,6 +288,47 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
                 margin-inline: auto;
                 text-align: center;
             }
+        }
+        .delete_preview{
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 30px;
+            z-index: 3;
+            height: 30px;
+            border-radius: 50%;
+            background: #000;
+            cursor: pointer;
+            border: none;
+            svg{
+                pointer-events: none;
+                fill: white;
+                @include fullWH();
+            }
+            path{
+                pointer-events: none;
+                stroke: white;
+            }
+        }
+
+        &:not(.with_preview){
+            .delete_preview{
+                display: none;
+                pointer-events: none;
+                opacity: 0;
+                user-select: none;
+            }
+        }
+        &.with_preview{
+            .input, .labelFile{
+                pointer-events: none;
+                user-select: none;
+                opacity: 0;
+            }
+
+            background-repeat: no-repeat !important;
+            background-size: cover !important;
+            background-position: center !important;
         }
     }
     &-img{

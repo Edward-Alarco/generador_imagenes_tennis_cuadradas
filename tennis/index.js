@@ -51,13 +51,20 @@
                 e.preventDefault();
 
                 const canvas = cropper.getCroppedCanvas();
-                console.log("Canvas generado:", canvas);
+                // console.log("Canvas generado:", canvas);
 
                 var croppedImage = canvas.toDataURL("image/png");
-                console.log("DataURL generado:", croppedImage);
+                // console.log("DataURL generado:", croppedImage);
 
                 if (croppedImage) {
                     image4Photo.src = croppedImage;
+
+                    // preview
+                    if(!inputFile.parentElement.classList.contains('with_preview')){
+                        inputFile.parentElement.classList.add('with_preview');
+                    }
+                    inputFile.parentElement.style.background = `url(${croppedImage})`;
+
                     document.querySelector('.generate_image').disabled = false;
                 } else {
                     console.error("Error al generar el DataURL.");
@@ -68,17 +75,40 @@
 
             popupCropper.querySelector('#clean').addEventListener('click', (e) => {
                 e.preventDefault();
+                image4Photo.src = '';
                 resetCropper();
             });
 
 		});
 
+        document.querySelector('.delete_preview').addEventListener('click', (e)=>{
+            e.preventDefault();
+            document.body.classList.add('loading');
+
+            inputFile.parentElement.style.background = '';
+            if(inputFile.parentElement.classList.contains('with_preview')){
+                inputFile.parentElement.classList.remove('with_preview');
+            }
+
+            image4Photo.src = '';
+
+            setTimeout(() => {
+                document.querySelector('.generate_image').disabled = true;
+                resetCropper();
+            }, 1000);
+        })
 
         function resetCropper(){
             if (popupCropper.classList.contains("active")) {
                 popupCropper.classList.remove("active");
             }
+
             document.getElementById("imageUpload").value = '';
+
+            if(document.body.classList.contains('loading')){
+                document.body.classList.remove('loading');
+            }
+
             setTimeout(() => {
                 popupCropperCanvas.innerHTML = '';
             }, 500);
