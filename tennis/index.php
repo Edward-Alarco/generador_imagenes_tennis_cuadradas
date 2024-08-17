@@ -36,15 +36,15 @@
         </div>
     </div>
 
-    <div class="loader_fixed">
-        <span class="loader"></span>
-    </div>
+    <div class="loader_fixed"><span class="loader"></span></div>
 
     <?php
     // Leer el archivo JSON desde el archivo .txt
-    $rutaArchivo = $_GET['json'] ?? '../example.json';
+    $rutaArchivo = $_GET['json'] ?? '../example1.json';
     $jsonData = file_get_contents($rutaArchivo);
     $datos = json_decode($jsonData, true);
+
+    $validation = 0;
     ?>
 
     <div class="hero_view wh-100vh">
@@ -53,7 +53,7 @@
 
             <div class="hero_view-test w-100">
                 <ul id="testing">
-                    <?php if (isset($datos['titulo']) && !empty($datos['titulo'])): ?>
+                    <?php if (isset($datos['titulo']) && !empty($datos['titulo'])): $validation++; ?>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
@@ -69,7 +69,7 @@
                         </li>
                     <?php endif; ?>
 
-                    <?php if (isset($datos['categoria']) && !empty($datos['categoria'])): ?>
+                    <?php if (isset($datos['categoria']) && !empty($datos['categoria'])): $validation++; ?>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
@@ -85,7 +85,7 @@
                         </li>
                     <?php endif; ?>
 
-                    <?php if (isset($datos['grupo']) && !empty($datos['grupo'])): ?>
+                    <?php if (isset($datos['grupo']) && !empty($datos['grupo'])): $validation++; ?>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
@@ -101,7 +101,7 @@
                         </li>
                     <?php endif; ?>
 
-                    <?php if (isset($datos['ronda']) && !empty($datos['ronda'])): ?>
+                    <?php if (isset($datos['ronda']) && !empty($datos['ronda'])): $validation++; ?>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
@@ -117,7 +117,7 @@
                         </li>
                     <?php endif; ?>
 
-                    <?php if (isset($datos['jugador_ganador_uno']) && !empty($datos['jugador_ganador_uno']) && isset($datos['jugador_rival_uno']) && !empty($datos['jugador_rival_uno'])): ?>
+                    <?php if (isset($datos['jugador_ganador_uno']) && !empty($datos['jugador_ganador_uno']) && isset($datos['jugador_rival_uno']) && !empty($datos['jugador_rival_uno'])): $validation++; ?>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
@@ -125,7 +125,7 @@
                             <p>Ambos jugadores cargados correctamente.</p>
                         </li>
                     <?php else: ?>
-                        <?php if (!isset($datos['jugador_ganador_uno']) || empty($datos['jugador_ganador_uno'])): ?>
+                        <?php if (!isset($datos['jugador_ganador_uno']) || empty($datos['jugador_ganador_uno'])): $validation++; ?>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
                                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
@@ -133,7 +133,7 @@
                                 <p>No encontramos el jugador 1 cargado.</p>
                             </li>
                         <?php endif; ?>
-                        <?php if (!isset($datos['jugador_rival_uno']) || empty($datos['jugador_rival_uno'])): ?>
+                        <?php if (!isset($datos['jugador_rival_uno']) || empty($datos['jugador_rival_uno'])): $validation++; ?>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
                                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
@@ -144,6 +144,7 @@
                     <?php endif; ?>
                 </ul>
             </div>
+            <?php if($validation > 2): ?>
             <div class="w-100 hero_view-input">
                 <label for="imageUpload" class="labelFile">
                     <span>
@@ -180,6 +181,7 @@
                     </svg>
                 </button>
             </div>
+            <?php endif; ?>
 
             <canvas id="canvas" style="display:none;"></canvas>
             <button type="button" class="generate_image" disabled>
@@ -227,37 +229,49 @@
                 </div>
                 <div class="canvas_scores">
                     <div class="canvas_scores-top canvas_scores-points">
-                        <div class="masked">
-                            <?php if (isset($datos['jugador_ganador_dos']) && !empty($datos['jugador_ganador_dos'])): ?>
+                        <?php if (isset($datos['jugador_ganador_dos']) && !empty($datos['jugador_ganador_dos'])): ?>
+                            <div class="masked" style="justify-content: flex-start">
                                 <p class="less"><?php echo $datos['jugador_ganador_uno'] . ' + ' . $datos['jugador_ganador_dos']; ?></p>
-                            <?php else: ?>
+                            </div>
+                        <?php else: ?>
+                            <div class="masked">
                                 <p><?php echo $datos['jugador_ganador_uno'] ?? ''; ?></p>
-                            <?php endif; ?>
-                        </div>
+                            </div>
+                        <?php endif; ?>
                         <div class="canvas_scores-grid">
                             <?php
-                            $resultado_ganador = $datos['resultado_ganador'];
-                            $resultado_ganador_array = explode('/', $resultado_ganador);
-                            foreach ($resultado_ganador_array as $index => $resultado) {
-                                echo '<p class="span">' . $resultado . '</p>';
+                            if (isset($datos['resultado_ganador']) && !empty($datos['resultado_ganador'])) {
+                                $resultado_ganador = $datos['resultado_ganador'];
+                                $resultado_ganador_array = explode('/', $resultado_ganador);
+                                foreach ($resultado_ganador_array as $index => $resultado) {
+                                    if($resultado){
+                                        echo '<p class="span">' . $resultado . '</p>';
+                                    }
+                                }
                             }
                             ?>
                         </div>
                     </div>
                     <div class="canvas_scores-bottom canvas_scores-points">
-                        <div class="masked">
-                            <?php if (isset($datos['jugador_ganador_dos']) && !empty($datos['jugador_ganador_dos'])): ?>
+                        <?php if (isset($datos['jugador_ganador_dos']) && !empty($datos['jugador_ganador_dos'])): ?>
+                            <div class="masked" style="justify-content: flex-start">
                                 <p class="less"><?php echo $datos['jugador_rival_uno'] . ' + ' . $datos['jugador_rival_dos']; ?></p>
-                            <?php else: ?>
+                            </div>
+                        <?php else: ?>
+                            <div class="masked">
                                 <p><?php echo $datos['jugador_rival_uno'] ?? ''; ?></p>
-                            <?php endif; ?>
-                        </div>
+                            </div>
+                        <?php endif; ?>
                         <div class="canvas_scores-grid">
                             <?php
-                            $resultado_rival = $datos['resultado_rival'];
-                            $resultado_rival_array = explode('/', $resultado_rival);
-                            foreach ($resultado_rival_array as $index => $resultado) {
-                                echo '<p class="span">' . $resultado . '</p>';
+                            if (isset($datos['resultado_rival']) && !empty($datos['resultado_rival'])) {
+                                $resultado_rival = $datos['resultado_rival'];
+                                $resultado_rival_array = explode('/', $resultado_rival);
+                                foreach ($resultado_rival_array as $index => $resultado) {
+                                    if($resultado){
+                                        echo '<p class="span">' . $resultado . '</p>';
+                                    }
+                                }
                             }
                             ?>
                         </div>

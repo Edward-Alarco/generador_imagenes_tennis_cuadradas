@@ -486,7 +486,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
                 align-items: center;
                 position: relative;
 
-                padding-left: 20px;
+                padding-left: 2.25%;
 
                 svg{
                     position: absolute;
@@ -517,7 +517,8 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
                         font-size: 7em;
                     }
                     &.less{
-                        font-size: 5.9em;
+                        text-align: left;
+                        font-size: 5.8em;
                     }
                     &.span{
                         font-size: 6.25em;
