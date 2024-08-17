@@ -249,12 +249,22 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
 }
 .hero_view-input {
   margin-block: 20px;
-  width: 300px;
   min-height: 100px;
-  aspect-ratio: 1.502/1.008;
   height: auto;
   position: relative;
   border: 2px dashed #ccc;
+}
+@media (min-width: 500px) {
+  .hero_view-input {
+    aspect-ratio: 1.502/1.008;
+    width: 300px;
+  }
+}
+@media (max-width: 500px) {
+  .hero_view-input {
+    width: 300px;
+    height: 201.33px;
+  }
 }
 .hero_view-input .input {
   position: absolute;
@@ -471,11 +481,9 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
 }
 .canvas_scores-points > div {
   height: 100%;
-  width: 50%;
   display: flex;
   align-items: center;
   position: relative;
-  padding-left: 20px;
   /*&.masked {
       mask-image: url(#mask1);
       -webkit-mask-image: url(#mask1);
@@ -504,6 +512,12 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
       background-position: center;
       background-repeat: no-repeat;
   }*/
+}
+.canvas_scores-points > div:nth-child(1) {
+  width: 60%;
+}
+.canvas_scores-points > div:nth-child(2) {
+  width: 40%;
 }
 .canvas_scores-points > div svg {
   position: absolute;
@@ -534,7 +548,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   font-size: 7em;
 }
 .canvas_scores-points > div p.less {
-  font-size: 5.9em;
+  font-size: 5.8em;
 }
 .canvas_scores-points > div p.span {
   font-size: 6.25em;
@@ -550,20 +564,24 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   top: 50%;
   transform: translateY(-50%) rotate(26deg);
 }
+.canvas_scores-points > div.less p.span {
+  font-size: 5.75em;
+}
 .canvas_scores-points > div:nth-child(1) {
   justify-content: center;
 }
 .canvas_scores-points > div:nth-child(1)::before {
   left: 0;
   background: url(../images/bg_gray.webp);
+  background-position: right;
 }
 .canvas_scores-points > div:nth-child(2)::before {
   right: 0;
   background: url(../images/bg_green.webp);
+  background-position: left;
 }
 .canvas_scores-points > div:nth-child(1)::before, .canvas_scores-points > div:nth-child(2)::before {
-  background-size: 100% 100%;
-  background-position: center;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 .canvas_scores-grid {
@@ -592,7 +610,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   height: calc(100% + 20px);
   left: calc(100% + 24.5px);
   top: 50%;
-  transform: translateY(-50%) rotate(26deg);
+  transform: translateY(-50%) rotate(29deg);
 }
 
 @keyframes rotation {

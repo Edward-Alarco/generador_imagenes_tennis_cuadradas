@@ -260,12 +260,20 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
     }
     &-input{
         margin-block: 20px;
-        width: 300px;
         min-height: 100px;
-        aspect-ratio: 1.502 / 1.008;
         height: auto;
         position: relative;
         border: 2px dashed #ccc;
+        
+        @media (min-width: 500px){
+            aspect-ratio: 1.502 / 1.008;
+            width: 300px;
+        }
+        @media (max-width: 500px){
+            width: 300px;
+            height: 201.33px;
+        }
+
         .input{
             position: absolute;
             opacity: 0;
@@ -481,12 +489,18 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
             flex-wrap: nowrap;
             &>div{
                 height: 100%;
-                width: 50%;
                 display: flex;
                 align-items: center;
                 position: relative;
-
-                padding-left: 2.25%;
+                
+                // padding-left: 2.25%;
+                
+                &:nth-child(1){
+                    width: 60%;
+                }
+                &:nth-child(2){
+                    width: 40%;
+                }
 
                 svg{
                     position: absolute;
@@ -517,7 +531,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
                         font-size: 7em;
                     }
                     &.less{
-                        text-align: left;
+                        // text-align: left;
                         font-size: 5.8em;
                     }
                     &.span{
@@ -535,6 +549,14 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
                                 top: 50%;
                                 transform: translateY(-50%) rotate(26deg);
                             }
+                        }
+                    }
+                }
+
+                &.less{
+                    p{
+                        &.span{
+                            font-size: 5.75em;
                         }
                     }
                 }
@@ -574,18 +596,20 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
                     &::before{
                         left: 0;
                         background: url(../images/bg_gray.webp);
+                        background-position: right;
                     }
                 }
                 &:nth-child(2){
                     &::before{
                         right: 0;
                         background: url(../images/bg_green.webp);
+                        background-position: left;
                     }
                 }
                 &:nth-child(1), &:nth-child(2){
                     &::before{
-                        background-size: 100% 100%;
-                        background-position: center;
+                        // background-size: 100% 100%;
+                        background-size: cover;
                         background-repeat: no-repeat;
                     }
                 }
@@ -618,7 +642,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
                         height: calc(100% + 20px);
                         left: calc(100% + (49px / 2));
                         top: 50%;
-                        transform: translateY(-50%) rotate(26deg);
+                        transform: translateY(-50%) rotate(29deg);
                     }
                 }
             }
