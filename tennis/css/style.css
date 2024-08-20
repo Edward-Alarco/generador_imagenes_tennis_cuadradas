@@ -586,7 +586,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
 }
 .canvas_scores-grid {
   display: grid !important;
-  grid-template-columns: repeat(4, 210px);
+  grid-template-columns: repeat(3, 210px);
   grid-gap: 49px;
   padding-left: 1.5%;
 }
@@ -611,6 +611,11 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   left: calc(100% + 24.5px);
   top: 50%;
   transform: translateY(-50%) rotate(29deg);
+}
+
+.you_dont_see_me {
+  opacity: 0;
+  pointer-events: none;
 }
 
 @keyframes rotation {

@@ -238,10 +238,24 @@
                                 if (isset($datos['resultado_ganador']) && !empty($datos['resultado_ganador'])) {
                                     $resultado_ganador = $datos['resultado_ganador'];
                                     $resultado_ganador_array = explode('/', $resultado_ganador);
-                                    foreach ($resultado_ganador_array as $index => $resultado) {
-                                        if ($resultado) {
-                                            echo '<p class="span">' . $resultado . '</p>';
+
+                                    // Rellena el array hasta tener 3 elementos, si es necesario.
+                                    while (count($resultado_ganador_array) < 3) {
+                                        $resultado_ganador_array[] = ''; // O algún valor por defecto si prefieres
+                                    }
+
+                                    // Genera los elementos <p> para cada valor en el array.
+                                    foreach ($resultado_ganador_array as $resultado) {
+                                        if(!empty($resultado)){
+                                            echo '<p class="span">' . htmlspecialchars($resultado) . '</p>';
+                                        }else{
+                                            echo '<p class="span you_dont_see_me">0</p>';
                                         }
+                                    }
+                                } else {
+                                    // Rellena el array hasta tener 3 elementos si no hay datos.
+                                    for ($i = 0; $i < 3; $i++) {
+                                        echo '<p class="span you_dont_see_me">0</p>'; // O algún valor por defecto si prefieres
                                     }
                                 }
                                 ?>
@@ -255,10 +269,24 @@
                                 if (isset($datos['resultado_ganador']) && !empty($datos['resultado_ganador'])) {
                                     $resultado_ganador = $datos['resultado_ganador'];
                                     $resultado_ganador_array = explode('/', $resultado_ganador);
-                                    foreach ($resultado_ganador_array as $index => $resultado) {
-                                        if ($resultado) {
-                                            echo '<p class="span">' . $resultado . '</p>';
+
+                                    // Rellena el array hasta tener 3 elementos, si es necesario.
+                                    while (count($resultado_ganador_array) < 3) {
+                                        $resultado_ganador_array[] = ''; // O algún valor por defecto si prefieres
+                                    }
+
+                                    // Genera los elementos <p> para cada valor en el array.
+                                    foreach ($resultado_ganador_array as $resultado) {
+                                        if(!empty($resultado)){
+                                            echo '<p class="span">' . htmlspecialchars($resultado) . '</p>';
+                                        }else{
+                                            echo '<p class="span you_dont_see_me">0</p>';
                                         }
+                                    }
+                                } else {
+                                    // Rellena el array hasta tener 3 elementos si no hay datos.
+                                    for ($i = 0; $i < 3; $i++) {
+                                        echo '<p class="span you_dont_see_me">0</p>'; // O algún valor por defecto si prefieres
                                     }
                                 }
                                 ?>
@@ -275,10 +303,24 @@
                                 if (isset($datos['resultado_rival']) && !empty($datos['resultado_rival'])) {
                                     $resultado_rival = $datos['resultado_rival'];
                                     $resultado_rival_array = explode('/', $resultado_rival);
-                                    foreach ($resultado_rival_array as $index => $resultado) {
-                                        if ($resultado) {
-                                            echo '<p class="span">' . $resultado . '</p>';
+
+                                    // Rellena el array hasta tener 3 elementos, si es necesario.
+                                    while (count($resultado_rival_array) < 3) {
+                                        $resultado_rival_array[] = ''; // O algún valor por defecto si prefieres
+                                    }
+
+                                    // Genera los elementos <p> para cada valor en el array.
+                                    foreach ($resultado_rival_array as $resultado) {
+                                        if(!empty($resultado)){
+                                            echo '<p class="span">' . htmlspecialchars($resultado) . '</p>';
+                                        }else{
+                                            echo '<p class="span you_dont_see_me">0</p>';
                                         }
+                                    }
+                                } else {
+                                    // Rellena el array hasta tener 3 elementos si no hay datos.
+                                    for ($i = 0; $i < 3; $i++) {
+                                        echo '<p class="span you_dont_see_me">0</p>'; // O algún valor por defecto si prefieres
                                     }
                                 }
                                 ?>
@@ -292,10 +334,24 @@
                                 if (isset($datos['resultado_rival']) && !empty($datos['resultado_rival'])) {
                                     $resultado_rival = $datos['resultado_rival'];
                                     $resultado_rival_array = explode('/', $resultado_rival);
-                                    foreach ($resultado_rival_array as $index => $resultado) {
-                                        if ($resultado) {
-                                            echo '<p class="span">' . $resultado . '</p>';
+
+                                    // Rellena el array hasta tener 3 elementos, si es necesario.
+                                    while (count($resultado_rival_array) < 3) {
+                                        $resultado_rival_array[] = ''; // O algún valor por defecto si prefieres
+                                    }
+
+                                    // Genera los elementos <p> para cada valor en el array.
+                                    foreach ($resultado_rival_array as $resultado) {
+                                        if(!empty($resultado)){
+                                            echo '<p class="span">' . htmlspecialchars($resultado) . '</p>';
+                                        }else{
+                                            echo '<p class="span you_dont_see_me">0</p>';
                                         }
+                                    }
+                                } else {
+                                    // Rellena el array hasta tener 3 elementos si no hay datos.
+                                    for ($i = 0; $i < 3; $i++) {
+                                        echo '<p class="span you_dont_see_me"></p>'; // O algún valor por defecto si prefieres
                                     }
                                 }
                                 ?>
