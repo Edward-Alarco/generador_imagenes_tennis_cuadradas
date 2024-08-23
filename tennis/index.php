@@ -221,7 +221,7 @@
                     <img src="images/logo.png" alt="Logo">
                     <div class="canvas_top-title">
                         <p><?php echo htmlspecialchars($datos['titulo'] ?? ''); ?></p>
-                        <h1>Resultados del partido</h1>
+                        <h1>Resultado del partido</h1>
                     </div>
                     <div class="canvas_image" id="imageContainer">
                         <img src="" title="Foto" alt="Foto">

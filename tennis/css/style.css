@@ -514,10 +514,12 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   }*/
 }
 .canvas_scores-points > div:nth-child(1) {
-  width: 60%;
+  width: 64%;
+  padding-right: 1.4%;
 }
 .canvas_scores-points > div:nth-child(2) {
-  width: 40%;
+  width: 36%;
+  padding-left: 1.6%;
 }
 .canvas_scores-points > div svg {
   position: absolute;
@@ -586,9 +588,8 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
 }
 .canvas_scores-grid {
   display: grid !important;
-  grid-template-columns: repeat(3, 210px);
+  grid-template-columns: repeat(3, 200px);
   grid-gap: 49px;
-  padding-left: 1.5%;
 }
 .canvas_scores-grid div {
   font-family: "Anton";
