@@ -246,7 +246,7 @@
 
                                     // Genera los elementos <p> para cada valor en el array.
                                     foreach ($resultado_ganador_array as $resultado) {
-                                        if(!empty($resultado)){
+                                        if(!empty($resultado) || $resultado == 0){
                                             echo '<p class="span">' . htmlspecialchars($resultado) . '</p>';
                                         }else{
                                             echo '<p class="span you_dont_see_me">0</p>';
@@ -277,7 +277,7 @@
 
                                     // Genera los elementos <p> para cada valor en el array.
                                     foreach ($resultado_ganador_array as $resultado) {
-                                        if(!empty($resultado)){
+                                        if(!empty($resultado) || $resultado == 0){
                                             echo '<p class="span">' . htmlspecialchars($resultado) . '</p>';
                                         }else{
                                             echo '<p class="span you_dont_see_me">0</p>';
@@ -311,7 +311,7 @@
 
                                     // Genera los elementos <p> para cada valor en el array.
                                     foreach ($resultado_rival_array as $resultado) {
-                                        if(!empty($resultado)){
+                                        if(!empty($resultado) || $resultado == 0){
                                             echo '<p class="span">' . htmlspecialchars($resultado) . '</p>';
                                         }else{
                                             echo '<p class="span you_dont_see_me">0</p>';
@@ -342,7 +342,7 @@
 
                                     // Genera los elementos <p> para cada valor en el array.
                                     foreach ($resultado_rival_array as $resultado) {
-                                        if(!empty($resultado)){
+                                        if(!empty($resultado) || $resultado == 0){
                                             echo '<p class="span">' . htmlspecialchars($resultado) . '</p>';
                                         }else{
                                             echo '<p class="span you_dont_see_me">0</p>';
