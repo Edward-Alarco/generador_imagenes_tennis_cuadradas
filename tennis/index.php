@@ -12,6 +12,8 @@
 
 <body>
 
+<style>.canvas_rounds, .canvas_format, .canvas_group{width:100%;}</style>
+
     <div class="loader_fixed">
         <span class="loader"></span>
     </div>
@@ -174,13 +176,39 @@
                             <small><?php echo $datos['grupo']; ?></small>
                         <?php endif; ?>
                     </p>
-                    <p class="canvas_rounds">
-                        <?php if (is_null($datos['grupo'])): ?>
-                            Fase de Grupos
-                        <?php else: ?>
-                            <?php echo htmlspecialchars($datos['ronda']); ?>
-                        <?php endif; ?>
-                    </p>
+                    
+			<p class="canvas_rounds">
+	    		<?php 
+				if(is_null($datos['grupo'])){
+					if(!is_null($datos['ronda'])){
+						if($datos['ronda'] == 16){
+							echo 'Ronda de 32';
+						}
+						if($datos['ronda'] == 8){
+							echo 'Octavos de final';
+						}
+						if($datos['ronda'] == 4){
+							echo 'Cuartos de final';
+						}
+						if($datos['ronda'] == 2){
+							echo 'Semi final';
+						}
+						if($datos['ronda'] == 1){
+							echo 'Final';
+						}
+						if($datos['ronda'] == "Fase de grupos"){
+							echo 'Fase de Grupos';
+						}
+					}else{
+						echo 'Fase de Grupos';
+					}
+				}else{
+					if(!is_null($datos['ronda'])){
+						echo htmlspecialchars($datos['ronda']);
+					}
+				}
+			?>
+                    	</p>
 
                     <img src="images/logo.png" alt="Logo">
                     <div class="canvas_top-title">
