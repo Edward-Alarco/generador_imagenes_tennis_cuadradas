@@ -81,7 +81,7 @@
 
 		});
 
-        document.querySelector('.delete_preview').addEventListener('click', (e)=>{
+        document.querySelector(`.delete_preview[data-id="1"]`).addEventListener('click', (e)=>{
             e.preventDefault();
             document.body.classList.add('loading');
 
