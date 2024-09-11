@@ -277,8 +277,31 @@ body {
   right: 0;
   width: 24%;
 }
-.canvas.bg {
+.canvas.bg1 {
   background: url(../images/bg/1.jpg) !important;
+}
+.canvas.bg2 {
+  background: url(../images/bg/2.jpeg) !important;
+}
+.canvas.bg3 {
+  background: url(../images/bg/3.jpeg) !important;
+}
+.canvas.bg4 {
+  background: url(../images/bg/4.jpeg) !important;
+}
+.canvas.bg5 {
+  background: url(../images/bg/5.jpeg) !important;
+}
+.canvas.bg6 {
+  background: url(../images/bg/6.jpeg) !important;
+}
+.canvas.bg7 {
+  background: url(../images/bg/7.jpeg) !important;
+}
+.canvas.bg8 {
+  background: url(../images/bg/8.jpeg) !important;
+}
+.canvas.bg1, .canvas.bg2, .canvas.bg3, .canvas.bg4, .canvas.bg5, .canvas.bg6, .canvas.bg7, .canvas.bg8 {
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center !important;

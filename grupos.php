@@ -16,7 +16,7 @@
 
     <?php
     // Leer el archivo JSON desde el archivo .txt
-    $rutaArchivo = $_GET['json'] ?? './example/players/3.json';
+    $rutaArchivo = $_GET['json'] ?? './example/groups/4.json';
     $jsonData = file_get_contents($rutaArchivo);
     $datos = json_decode($jsonData, true);
 
@@ -65,19 +65,19 @@
                             </li>
                         <?php endif; ?>
 
-                        <?php if (isset($datos['jugadores']) && !empty($datos['jugadores'])): $validation++; ?>
+                        <?php if (isset($datos['grupos']) && !empty($datos['grupos'])): $validation++; ?>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon check" viewBox="0 0 512 512">
                                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96" />
                                 </svg>
-                                <p>Se cargaron <?php echo count($datos['jugadores']); ?> jugadores</p>
+                                <p>Se cargaron <?php echo count($datos['grupos']); ?> grupos</p>
                             </li>
                         <?php else: ?>
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon uncheck" viewBox="0 0 512 512">
                                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
                                 </svg>
-                                <p>No existen jugadores en el JSON.</p>
+                                <p>No existen grupos en el JSON.</p>
                             </li>
                         <?php endif; ?>
                     </ul>
@@ -125,7 +125,7 @@
 
             </div>
             <div class="wh-100vh view_hero-image">
-                <img src="images/img1.jpg">
+                <img src="images/img2.jpg">
             </div>
         </div>
     </div>
@@ -135,9 +135,9 @@
             <div class="canvas canvas-full bg<?php echo numeroAleatorio(); ?>">
                 <img src="images/topbar.png" class="canvas_topbar">
                 <img src="images/flag.png" class="canvas_flag">
-                <div class="canvas_head">
+                <div class="canvas_head for_group">
                     <div>
-                        <h1>LINE UP</h1>
+                        <h1>GRUPOS</h1>
                     </div>
                     <?php if (isset($datos['torneo']) && !empty($datos['torneo'])): ?>
                         <div>
@@ -145,42 +145,48 @@
                         </div>
                     <?php endif; ?>
                 </div>
-                <div class="canvas_body">
+                <div class="canvas_body for_group">
                     <?php if (isset($datos['categoria']) && !empty($datos['categoria'])): ?>
                         <div class="wh-100 canvas_body-title">
-                            <h3><?php echo 'Categor&iacute;a: ' . $datos['categoria']; ?></h3>
+                            <h3><?php echo 'Categoría: ' . $datos['categoria']; ?></h3>
                         </div>
                     <?php endif; ?>
-                    <?php if (!empty($datos['jugadores'])): ?>
-                        <?php
-                        $cols = 2;
-                        $class = 'separado';
-                        $cantidad_jugadores = count($datos['jugadores']);
 
-                        if ($cantidad_jugadores < 19) {
-                            $cols = 2;
-                        } else {
-                            $cols = 4;
-                        }
+                    <?php if (isset($datos['grupos']) && !empty($datos['grupos'])): ?>
 
-                        if ($cantidad_jugadores > 30) {
-                            $class = 'pegado';
-                        }
-                        if ($cantidad_jugadores > 56) {
-                            $class = 'muy_pegado';
-                        }
+                        <?php 
+                            $around = 4;
+                            if(count($datos['grupos']) > 4 && count($datos['grupos']) <= 8){
+                                $around = 8;
+                            }
+                            if(count($datos['grupos']) > 8 && count($datos['grupos']) <= 12){
+                                $around = 12;
+                            }
+                            if(count($datos['grupos']) > 12){
+                                $around = 16;
+                            }
                         ?>
-                        <div class="wh-100 relative" data-lines="<?php echo $cols - 1; ?>">
-                            <?php for ($i = 0; $i < $cols - 1; $i++) {
-                                echo '<div class="line absolute"></div>';
-                            } ?>
-                            <ul data-qty="<?php echo $cantidad_jugadores; ?>" data-cols="<?php echo $cols; ?>" class="<?php echo $class; ?>">
-                                <?php foreach ($datos['jugadores'] as $jugador) {
-                                    echo '<li>' . $jugador['nombres'] . ' ' . $jugador['apellidos'] . '</li>';
-                                } ?>
-                            </ul>
+
+                        <div class="w-100 relative canvas_body-grid" data-around-count="<?php echo $around; ?>">
+                            <?php foreach ($datos['grupos'] as $group): ?>
+                                <div class="group">
+                                    <div class="group_name">
+                                        <p><?php echo $group['nombre']; ?></p>
+                                    </div>
+                                    <div class="group_list">
+                                        <?php if (isset($group['jugadores']) && !empty($group['jugadores'])): ?>
+                                            <ul>
+                                                <?php foreach ($group['jugadores'] as $jugador) {
+                                                    echo '<li>' . $jugador['nombres'] . ' ' . $jugador['apellidos'] . '</li>';
+                                                } ?>
+                                            </ul>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
+
                 </div>
             </div>
         </div>

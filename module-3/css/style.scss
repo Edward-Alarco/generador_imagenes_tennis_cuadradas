@@ -274,12 +274,37 @@ body{
         width: 24%;
     }
 
-    &.bg{
+    &.bg1{
         background: url(../images/bg/1.jpg) !important;
+    }
+    &.bg2{
+        background: url(../images/bg/2.jpeg) !important;
+    }
+    &.bg3{
+        background: url(../images/bg/3.jpeg) !important;
+    }
+    &.bg4{
+        background: url(../images/bg/4.jpeg) !important;
+    }
+    &.bg5{
+        background: url(../images/bg/5.jpeg) !important;
+    }
+    &.bg6{
+        background: url(../images/bg/6.jpeg) !important;
+    }
+    &.bg7{
+        background: url(../images/bg/7.jpeg) !important;
+    }
+    &.bg8{
+        background: url(../images/bg/8.jpeg) !important;
+    }
+    
+    &.bg1, &.bg2, &.bg3, &.bg4, &.bg5, &.bg6, &.bg7, &.bg8{
         background-repeat: no-repeat !important;
         background-size: cover !important;
         background-position: center !important;
     }
+
     &:not(.bg){
         background-repeat: no-repeat !important;
         background-size: cover !important;

@@ -13,7 +13,31 @@
             reader.onload = function(e) {
                 const imageUrl = e.target.result;
 
-                diagram.classList.remove('bg');
+                if(diagram.classList.contains('bg1')){
+                    diagram.classList.remove('bg1');
+                }
+                if(diagram.classList.contains('bg2')){
+                    diagram.classList.remove('bg2');
+                }
+                if(diagram.classList.contains('bg3')){
+                    diagram.classList.remove('bg3');
+                }
+                if(diagram.classList.contains('bg4')){
+                    diagram.classList.remove('bg4');
+                }
+                if(diagram.classList.contains('bg5')){
+                    diagram.classList.remove('bg5');
+                }
+                if(diagram.classList.contains('bg6')){
+                    diagram.classList.remove('bg6');
+                }
+                if(diagram.classList.contains('bg7')){
+                    diagram.classList.remove('bg7');
+                }
+                if(diagram.classList.contains('bg8')){
+                    diagram.classList.remove('bg8');
+                }
+
                 diagram.style.background = `url(${imageUrl})`;
 
                 heroViewForBg.style.background = `url(${imageUrl})`;
@@ -29,13 +53,16 @@
         resetToDefaultImage();
     })
 
+    function obtenerNumeroAleatorio() {
+        return Math.floor(Math.random() * 8) + 1;
+    }
+
     function resetToDefaultImage(){
         diagram.style.background = ``;
         heroViewForBg.style.background = ``;
 
-        if(!diagram.classList.contains('bg')){
-            diagram.classList.add('bg');
-        }
+        diagram.classList.add(`bg${obtenerNumeroAleatorio()}`);       
+            
         if(heroViewForBg.classList.contains('with_preview')){
             heroViewForBg.classList.remove('with_preview');
         }
