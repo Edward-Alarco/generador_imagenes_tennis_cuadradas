@@ -422,6 +422,30 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
 .canvas.bg6 {
   background: rgba(51, 129, 133, 0.8) url(../images/bg/bg6.jpeg) no-repeat;
 }
+.canvas.bg7 {
+  background: rgba(51, 129, 133, 0.8) url(../images/bg/bg7.jpeg) no-repeat;
+}
+.canvas.bg8 {
+  background: rgba(51, 129, 133, 0.8) url(../images/bg/bg8.jpeg) no-repeat;
+}
+.canvas.bg9 {
+  background: rgba(51, 129, 133, 0.8) url(../images/bg/bg9.jpeg) no-repeat;
+}
+.canvas.bg10 {
+  background: rgba(51, 129, 133, 0.8) url(../images/bg/bg10.jpeg) no-repeat;
+}
+.canvas.bg11 {
+  background: rgba(51, 129, 133, 0.8) url(../images/bg/bg11.jpeg) no-repeat;
+}
+.canvas.bg12 {
+  background: rgba(51, 129, 133, 0.8) url(../images/bg/bg12.jpeg) no-repeat;
+}
+.canvas.bg13 {
+  background: rgba(51, 129, 133, 0.8) url(../images/bg/bg13.jpeg) no-repeat;
+}
+.canvas.bg14 {
+  background: rgba(51, 129, 133, 0.8) url(../images/bg/bg14.jpeg) no-repeat;
+}
 .canvas_scroll {
   padding-bottom: 30px;
   overflow-x: scroll;
@@ -438,6 +462,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span {
   color: white;
   z-index: 3;
   font-style: italic;
+  width: 386px;
   max-width: 400px;
   text-align: center;
 }

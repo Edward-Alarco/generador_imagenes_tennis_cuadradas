@@ -251,7 +251,7 @@
 
     <?php if (!empty($datos)) : ?>
         <div class="canvas_scroll w-100">
-            <div class="canvas general_canvas bg<?php echo rand(1, 6); ?>">
+            <div class="canvas general_canvas bg<?php echo rand(1, 14); ?>">
                 <div class="canvas_top">
 
                     <p class="canvas_format">

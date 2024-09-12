@@ -427,6 +427,31 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
     &.bg6{
         background: rgba($color: #338185, $alpha: 0.8) url(../images/bg/bg6.jpeg) no-repeat;
     }
+
+    &.bg7{
+        background: rgba($color: #338185, $alpha: 0.8) url(../images/bg/bg7.jpeg) no-repeat;
+    }
+    &.bg8{
+        background: rgba($color: #338185, $alpha: 0.8) url(../images/bg/bg8.jpeg) no-repeat;
+    }
+    &.bg9{
+        background: rgba($color: #338185, $alpha: 0.8) url(../images/bg/bg9.jpeg) no-repeat;
+    }
+    &.bg10{
+        background: rgba($color: #338185, $alpha: 0.8) url(../images/bg/bg10.jpeg) no-repeat;
+    }
+    &.bg11{
+        background: rgba($color: #338185, $alpha: 0.8) url(../images/bg/bg11.jpeg) no-repeat;
+    }
+    &.bg12{
+        background: rgba($color: #338185, $alpha: 0.8) url(../images/bg/bg12.jpeg) no-repeat;
+    }
+    &.bg13{
+        background: rgba($color: #338185, $alpha: 0.8) url(../images/bg/bg13.jpeg) no-repeat;
+    }
+    &.bg14{
+        background: rgba($color: #338185, $alpha: 0.8) url(../images/bg/bg14.jpeg) no-repeat;
+    }
     
     background-size: cover !important;
     background-position: center !important;
@@ -452,6 +477,7 @@ label, button, input, p, h1, h2, h3, h4, h5, h6, span{
         color: white;
         z-index: 3;
         font-style: italic;
+        width: 386px;
         small{
             display: block;
             text-align: center;
