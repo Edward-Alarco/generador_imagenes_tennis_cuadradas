@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+
+        if(document.body.classList.contains('loading')){
+            document.body.classList.remove('loading')
+        }
     }
 
     function createCanvasAndDownload(canvas, startX, width, height, targetWidth, targetHeight, filename) {
@@ -26,6 +30,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (button) {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
+
+                document.body.classList.add('loading');
+
                 setTimeout(() => {
                     html2canvas(canvasFull, {
                         scale: 1
@@ -36,7 +43,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         let targetHeight = 1440;
                         createCanvasAndDownload(canvas, 0, width, height, targetWidth, targetHeight, 'imagen.png');
                     });
-                }, 100);
+                }, 600);
+
             });
         }
     }

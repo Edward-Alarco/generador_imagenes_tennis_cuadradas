@@ -30,7 +30,7 @@
     <div class="view_hero">
         <div class="view_hero-grid">
             <div class="wh-100vh view_hero-info">
-                <h1>Generador de Imágenes</h1>
+                <h1>Tabla de Jugadores</h1>
                 <div class="view_hero-test w-100">
                     <ul>
                         <?php if (isset($datos['titulo']) && !empty($datos['titulo'])): $validation++; ?>
@@ -111,7 +111,7 @@
                                     </g>
                                 </svg>
                             </span>
-                            <p>Arrastre y suelte su foto o haga clic para subir una.</p>
+                            <p>Arrastre y suelte su imagen de fondo <small style="display:block">(min. 1900x1900)</small></p>
                         </label>
                         <input class="input" type="file" id="imageUpload" accept=".jpg, .jpeg, .png">
                         <button class="delete_preview" type="button">

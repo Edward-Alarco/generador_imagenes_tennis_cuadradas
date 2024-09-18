@@ -21,12 +21,16 @@
     $datos = json_decode($jsonData, true);
 
     $validation = 0;
+
+    function numeroAleatorio() {
+        return rand(1, 8);
+    }
     ?>
 
     <div class="view_hero">
         <div class="view_hero-grid">
             <div class="wh-100vh view_hero-info">
-                <h1>Generador de Imágenes</h1>
+                <h1>Tabla de Grupos</h1>
                 <div class="view_hero-test w-100">
                     <ul>
                         <?php if (isset($datos['titulo']) && !empty($datos['titulo'])): $validation++; ?>
@@ -107,7 +111,7 @@
                                     </g>
                                 </svg>
                             </span>
-                            <p>Arrastre y suelte su foto o haga clic para subir una.</p>
+                            <p>Arrastre y suelte su imagen de fondo <small style="display:block">(min. 1900x1900)</small></p>
                         </label>
                         <input class="input" type="file" id="imageUpload" accept=".jpg, .jpeg, .png">
                         <button class="delete_preview" type="button">
@@ -128,7 +132,7 @@
 
     <?php if (isset($datos) && !empty($datos)): ?>
         <div class="canvas_scroll w-100">
-            <div class="canvas canvas-full bg">
+            <div class="canvas canvas-full bg<?php echo numeroAleatorio(); ?>">
                 <img src="images/topbar.png" class="canvas_topbar">
                 <img src="images/flag.png" class="canvas_flag">
                 <div class="canvas_head for_group">
